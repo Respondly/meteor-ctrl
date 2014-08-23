@@ -2,7 +2,7 @@
 Represents an "context" instance of a control used internally
 by the control's code-behind.
 ###
-class Ctrl.Instance
+class Ctrl.CtrlInstance
   constructor: (def, options = {}) ->
     # Setup initial conditions.
     self           = @
@@ -14,6 +14,14 @@ class Ctrl.Instance
     @helpers       = { __instance__:@ } # NB: Temporarily store the instance for retrieval within [created/init] callback.
     @children      = []
     @__internal__  = { def:def }
+
+    # Store parent reference if provided.
+    #     This will be passed only when explicitly known at the time
+    #     of construction. Otherwise it is derived within the
+    #     [tmpl.created] callback.
+    if parentCtrl = options.__parentCtrl
+      @parent = parentCtrl.context
+      delete options.__parentCtrl
 
     # Store temporary global reference if an "insert" ID was specified.
     # This is retrieved (and cleaned up) via the "insert" method.
@@ -39,7 +47,7 @@ class Ctrl.Instance
         @helpers.data = => @data
 
     # Finish up.
-    @ctrl = new Ctrl.Control(@)
+    @ctrl = new Ctrl.Ctrl(@)
 
 
   ###
@@ -84,8 +92,8 @@ class Ctrl.Instance
     delete Ctrl.ctrls[@uid]
 
     # Dispose of resources.
-    internal.onCreated?.dispose()
-    delete internal.onCreated
+    internal.onReady?.dispose()
+    delete internal.onReady
     internal.session?.dispose()
     internal.hash?.dispose()
     @ctrl.dispose()
@@ -134,33 +142,46 @@ class Ctrl.Instance
                 - String (CSS selector)
                 - null (uses root element of the control)
 
+  @param beforeEl:  (optional) The element to insert before.
+
   @param args: The control arguments.
   ###
-  appendCtrl: (def, el, args) ->
+  appendCtrl: (def, el, beforeEl, args) ->
+    # Setup initial conditions.
+    if beforeEl?
+      if not args? and not (beforeEl.jquery or beforeEl.nodeType is 1)
+        args = beforeEl
+        beforeEl = null
+
     # Look up the Ctrl definition if required.
     def = Ctrl.defs[def] if Object.isString(def)
     throw new Error('Control definition required') unless def?
 
     # Insert the control.
     el = @find(el) unless el?.jquery?
-    result = def.insert(el, args)
+    ctrl = def.insert(el, beforeEl, args, @ctrl)
 
     # Establish the parent/child relationships.
-    CtrlUtil.registerChild(@, result.ctrl.context)
+    CtrlUtil.registerChild(@, ctrl.context)
 
     # Finish up.
-    result
+    ctrl
 
 
 
 
   ###
-  Registers a handler to be run when the instance is "created" (and ready).
+  Registers a handler to be run when the ctrl is DOM "ready".
   @param func: The function to invoke.
   ###
-  onCreated: (func) ->
-    handlers = @__internal__.onCreated ?= new Handlers(@)
-    handlers.push(func)
+  onReady: (func) ->
+    if @isReady
+      # Invoke immediately if already "ready".
+      func.call(@) if Object.isFunction(func)
+
+    else
+      handlers = @__internal__.onReady ?= new Handlers(@)
+      handlers.push(func)
 
 
 
@@ -185,9 +206,12 @@ class Ctrl.Instance
   @param options:
             default:  (optional). The default value to return if the session does not contain the value (ie. undefined).
             onlyOnChange:  (optional). Will only call set if the value has changed.
-                                           Default is set by the [defaultOnlySetIfChanged] property.
+                                       Default:true
   ###
-  prop: (key, value, options = {}) -> @hash().prop(key, value, options)
+  prop: (key, value, options = {}) ->
+    options.onlyOnChange ?= true
+    options.default = @defaultValue(key, options.default)
+    @hash().prop(key, value, options)
 
 
 
@@ -271,6 +295,59 @@ class Ctrl.Instance
   @param args:   Optional. Arguments to pass with the event.
   ###
   trigger: (event, args) -> events(@).trigger(event, args)
+
+
+
+  ###
+  Allows property style read/write operations on CSS values.
+  Example:
+
+    maxWidth: (value) -> @css 'max-width', value, unit:'px'
+
+    isVisible: (value) ->
+      @css 'display', value,
+        onRead: (value) -> value is 'block'
+        onWrite: (value) -> if value then 'block' else 'none'
+
+
+  @param style:     The CSS style under consideration.
+  @param value:     Optional.  The CSS value to write.
+                    Ommit for read operations.
+                    Pass null or empty-string ('') to remove the CSS property.
+  @param options:
+            - unit:            Optional.  The value's unit, eg 'px'.
+            - selector:        Optional.  The CSS selector.  The root element of the control is used if ommitted.
+            - onRead(value):   Optional.  A function that transforms the value upon reading.
+            - onWrite(value):  Optional.  A function that transforms the value upon reading.
+
+  @returns The CSS value, or null if the value does not exist.
+  ###
+  css: (style, value, options = {}) ->
+    # Setup initial conditions.
+    return unless @find
+    el   = @find(options.selector)
+    unit = options.unit
+
+    onRead  = options.onRead
+    onWrite = options.onWrite
+
+    # Write.
+    if value isnt undefined
+      value = onWrite(value) if Object.isFunction(onWrite)
+      write = value ? ''
+      write += unit if value and unit
+      el.css(style, write)
+
+    # Read.
+    result = el?.css(style)
+    result = null if Util.isBlank(result)
+    result = result ? null
+    result = onRead(result) if Object.isFunction(onRead)
+
+    # Finish up.
+    result
+
+
 
 
 # PRIVATE ----------------------------------------------------------------------

@@ -1,7 +1,7 @@
 ###
 Represents the public API of a control.
 ###
-class Ctrl.Control
+class Ctrl.Ctrl
   ###
   Constructor.
   @param context: The Ctrl instance.
@@ -37,13 +37,21 @@ class Ctrl.Control
       delete children[@id]
 
 
-
   ###
   Retrieves the a jQuery element for the control.
   @param selector:  Optional. A CSS selector to search within the element's DOM for.
                     If ommited the root element is returned.
   ###
   el: (selector) -> @context.find(selector)
+
+
+
+  ###
+  Registers a handler to be run when the ctrl is DOM "ready".
+  @param func(ctrl): The function to invoke.
+  ###
+  onReady: (func) ->
+    @context.onReady => func?.call(@, @)
 
 
 

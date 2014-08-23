@@ -2,20 +2,16 @@
 The container template for a [Ctrl].
 
   This dynamically renders the declared 'type' passing it a
-  [CtrlInstance] as the context.
+  Ctrl [Instance] as the context.
 
   The type corresponds with the <template> name.
 
 ###
 Template.ctrl.helpers
-
   ###
   The template name: {{> UI.dynamic template=name data=context }}
   ###
-  name: ->
-    throw new Error("A 'type' name has not been declared on the {{> ctrl}}.") unless @type
-    @type
-
+  name: -> @type
 
 
   ###
@@ -34,6 +30,6 @@ Template.ctrl.helpers
       throw new Error("The control of type '#{ tmpl }' has not been defined.")
 
     # Return the instance helpers as the data context for the rendered template.
-    return new Ctrl.Instance(ctrl.def, options).helpers
+    return new Ctrl.CtrlInstance(ctrl.def, options).helpers
 
 

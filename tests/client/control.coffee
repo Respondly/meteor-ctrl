@@ -1,4 +1,6 @@
 describe 'Control', ->
+  afterEach -> Test.tearDown()
+
   it 'has a subset of properties from the context (instance)', (done) ->
     Test.insert 'foo', (instance) =>
       ctrl = instance.ctrl
@@ -18,7 +20,8 @@ describe 'Control', ->
           expect(ctrl.children.length).to.equal 3
           expect(ctrl.children[0].parent).to.equal ctrl
           expect(ctrl.children.myFoo).to.equal instance.children.myFoo.ctrl
-      done()
+      Util.delay 100, =>
+        done()
 
 
   it 'passes [el] method to [instance.find]', (done) ->
@@ -40,6 +43,8 @@ describe 'Control', ->
 
 
 describe 'Control: dispose', ->
+  afterEach -> Test.tearDown()
+
   it 'is disposed when instance is disposed', (done) ->
     Test.insert 'foo', (instance) =>
       @try =>
@@ -73,6 +78,8 @@ describe 'Control: dispose', ->
 
 
 describe 'Control: API', ->
+  afterEach -> Test.tearDown()
+
   it 'copies API onto the [ctrl]', (done) ->
     Test.insert 'apiTest', (instance) =>
       ctrl = instance.ctrl

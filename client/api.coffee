@@ -21,7 +21,7 @@ Ctrl.define = (defs = {}) ->
     def.type ?= type
     if Ctrl.defs[type]?
       throw new Error("The control named '#{ type }' has already been defined.")
-    Ctrl.defs[type] = new Ctrl.Definition(type, def)
+    Ctrl.defs[type] = new Ctrl.CtrlDefinition(type, def)
 
 
 

@@ -5,10 +5,10 @@ describe 'DOM: insert', ->
   afterEach -> Test.tearDown()
 
   it 'inserts into the DOM with the "data-ctrl-uid" attribute', (done) ->
-    Ctrl.defs.foo.insert('body').ready (instance) =>
+    Ctrl.defs.foo.insert('body').onReady (ctrl) =>
         @try ->
             # Ensure the element exist within the DOM.
-            el = findElement(instance.uid)
+            el = findElement(ctrl.uid)
             expect(el[0]).to.exist
         done()
 

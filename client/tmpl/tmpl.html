@@ -1,3 +1,5 @@
 <template name='ctrl'>
-  {{> UI.dynamic template=name data=context }}
+  {{#if name}}
+    {{> UI.dynamic template=name data=context }}
+  {{/if}}
 </template>

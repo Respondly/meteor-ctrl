@@ -1,7 +1,7 @@
 ###
 The definition of a control.
 ###
-class Ctrl.Definition
+class Ctrl.CtrlDefinition
   ###
   Constructor.
   @param type: The type/template name.
@@ -53,7 +53,7 @@ class Ctrl.Definition
                 else
                   findParent(blazeView.parentView) # <== RECURSION.
 
-        parent = findParent(blazeView.parentView)
+        parent = instance.parent ? findParent(blazeView.parentView)
         CtrlUtil.registerChild(parent, instance)
 
         # Invoke the "init" method on the instance.
@@ -63,6 +63,7 @@ class Ctrl.Definition
     # CREATED (DOM Ready).
     tmpl.rendered = ->
         instance = @__instance__
+        instance.isReady = true
 
         # Ensure that the control has a single root element.
         if @__view__.domrange.members.length > 1
@@ -72,18 +73,16 @@ class Ctrl.Definition
         instance.find().attr('data-ctrl-uid', instance.uid)
 
         # Invoke the "created" method on the instance.
-        invoke(@, 'created')
+        invoke(@, 'ready')
 
         # Invoke any "ready" handlers.
-        if handlers = instance.__internal__.onCreated
+        if handlers = instance.__internal__.onReady
           handlers.invoke(instance)
           handlers.dispose()
-          delete instance.__internal__.onCreated
-
+          delete instance.__internal__.onReady
 
     # DESTROYED.
     tmpl.destroyed = -> @__instance__.dispose()
-
 
     # Prepare events.
     wrapEvent = (func) -> (e, context) -> func.call(context.__instance__, e)
@@ -96,24 +95,40 @@ class Ctrl.Definition
 
   ###
   Inserts a new instance of the control into the DOM.
-  @param el:    The element to insert into. Can be:
-                - DOM element
-                - jQuery element
-                - String (CSS selector)
-  @param args:  The named data arguments to supply to the control.
+  @param parentElement: The element to insert into. Can be:
+                          - DOM element
+                          - jQuery element
+                          - String (CSS selector)
+  @param beforeEl:    (optional) The element to insert before.
+  @param args:        The named data arguments to supply to the control.
+  @param parentCtrl:  (optional) A reference to the parent control.
   ###
-  insert: (el, args = {}) ->
+  insert: (parentEl, beforeEl, args, parentCtrl) ->
     # Setup initial conditions.
+    if beforeEl?
+      if not args? and not (beforeEl.jquery or beforeEl.nodeType is 1)
+        args = beforeEl
+        beforeEl = null
+
+    # Prepare the args that are passed to the control.
+    args ?= {}
     args.type = @type
     args.__insert = _.uniqueId() # Temporarily store an ID to retrieve the instance with.
+    args.__parentCtrl = parentCtrl if parentCtrl?
+
+    processEl = (el) ->
+        if el
+          el = $(el) if _.isString(el)
+          el = el[0] if el.jquery
+          el
 
     # Process the element to insert into.
-    el = $(el) if _.isString(el)
-    el = el[0] if el.jquery
+    parentEl = processEl(parentEl)
+    beforeEl = processEl(beforeEl)
 
     # Render the control.
     domrange = UI.renderWithData(Template.ctrl, args)
-    UI.insert(domrange, el)
+    UI.insert(domrange, parentEl, beforeEl)
 
     # Retrieve the new instance.
     instance = Ctrl.__inserted
@@ -121,11 +136,4 @@ class Ctrl.Definition
     instance
 
     # Finish up.
-    result =
-      ctrl: instance.ctrl
-      ready: (func) -> instance.onCreated(func)
-
-
-
-
-
+    instance.ctrl

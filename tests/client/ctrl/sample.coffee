@@ -3,7 +3,7 @@ Ctrl.define
     init: ->
       @initWasCalled = true
       @modelCount = 0
-    created: -> @createdWasCalled = true
+    ready: -> @createdWasCalled = true
     destroyed: -> @destroyedWasCalled = true
     model: ->
       @modelCount += 1
@@ -34,7 +34,7 @@ Ctrl.define
 
 
   'autorun':
-    created: ->
+    ready: ->
       @runCount = 0
       @autorun =>
         value = Session.get('reactive-value')

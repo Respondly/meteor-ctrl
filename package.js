@@ -10,6 +10,7 @@ Package.on_use(function (api) {
   api.use(['coffeescript', 'sugar']);
   api.use(['util']);
   api.export('Ctrl');
+  api.export('Util');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.add_files('client/tmpl/tmpl.html', 'client');
@@ -35,10 +36,12 @@ Package.on_test(function (api) {
   api.add_files('tests/client/_init.coffee', 'client');
   api.add_files('tests/client/ctrl/sample.coffee', 'client');
   api.add_files('tests/client/ctrl/sample.styl', 'client');
-  api.add_files('tests/client/control-test.coffee', 'client');
-  api.add_files('tests/client/dom-test.coffee', 'client');
-  api.add_files('tests/client/instance-test.coffee', 'client');
+  api.add_files('tests/client/control.coffee', 'client');
+  api.add_files('tests/client/dom.coffee', 'client');
+  api.add_files('tests/client/instance-children.coffee', 'client');
+  api.add_files('tests/client/instance-deps.coffee', 'client');
+  api.add_files('tests/client/instance-dom.coffee', 'client');
+  api.add_files('tests/client/instance-events.coffee', 'client');
+  api.add_files('tests/client/instance.coffee', 'client');
 
 });
-
-

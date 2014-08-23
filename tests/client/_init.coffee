@@ -16,7 +16,10 @@ Test.insert = (ctrlDef, options, callback) ->
     options = undefined
 
   ctrlDef = Ctrl.defs[ctrlDef] if Object.isString(ctrlDef)
-  ctrlDef.insert('body', options).ready (instance) -> callback?(instance)
+  ctrl = ctrlDef.insert('body', options)
+  ctrl.onReady (c) ->
+    Util.delay ->
+      callback?(c.context)
 
 
 
