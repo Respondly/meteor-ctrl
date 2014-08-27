@@ -77,7 +77,7 @@ class Ctrl.CtrlInstance
 
     # Remove from parent.
     if children = @parent?.children
-      index = _.indexOf(children, @)
+      index = _.indexOf(children, @ctrl)
       children.splice(index, 1) if index > -1
       delete children[@id]
 
@@ -163,7 +163,7 @@ class Ctrl.CtrlInstance
     ctrl = def.insert(el, beforeEl, args, @ctrl)
 
     # Establish the parent/child relationships.
-    CtrlUtil.registerChild(@, ctrl.context)
+    INTERNAL.registerChild(@, ctrl.context)
 
     # Finish up.
     ctrl
@@ -244,7 +244,6 @@ class Ctrl.CtrlInstance
         - This instance (if matched),
         - The matching ancestor
         - Null.
-
   ###
   closest: (selector = {}) ->
     if type = selector.type
@@ -358,6 +357,8 @@ class Ctrl.CtrlInstance
 matchType = (type, obj) -> obj?.type is type
 
 
+
+
 events = (instance) ->
   internal = instance.__internal__
   internal.events = new Util.Events() unless internal.events
@@ -367,7 +368,7 @@ events = (instance) ->
 
 
 
-CtrlUtil.registerChild = (parentInstance, childInstance) ->
+INTERNAL.registerChild = (parentInstance, childInstance) ->
   return unless (parentInstance? and childInstance?)
 
   # Update parent reference.
@@ -379,11 +380,11 @@ CtrlUtil.registerChild = (parentInstance, childInstance) ->
       children.push(item) unless alreadyExists
 
   # Update [children] collection.
-  push(childInstance, parentInstance.children)
+  push(childInstance.ctrl, parentInstance.children)
   push(childInstance.ctrl, parentInstance.ctrl.children)
 
   if id = childInstance.options.id
-    parentInstance.children[id] = childInstance
+    parentInstance.children[id] = childInstance.ctrl
     parentInstance.ctrl.children[id] = childInstance.ctrl
 
 

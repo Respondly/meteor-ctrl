@@ -3,4 +3,4 @@
 /*
 Shared internally to package.
 */
-CtrlUtil = {}
+INTERNAL = {}

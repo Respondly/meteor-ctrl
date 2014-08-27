@@ -74,3 +74,25 @@ class Ctrl.Ctrl
   off: (event, func) -> @context.off(event, func)
 
 
+
+  ###
+  Walks up the hierarchy returning the first ancestor that
+  matches the given selector.
+  @param selector:
+            - type: The name of the type to look for.
+  @returns The matching ancestor [Instance] or Null.
+  ###
+  ancestor: (selector) -> @context.ancestor(selector)?.ctrl ? null
+
+
+  ###
+  Finds the closest matching control Instance.
+  @param selector: See 'ancestor'
+  @returns
+        - This instance (if matched),
+        - The matching ancestor
+        - Null.
+  ###
+  closest: (selector) -> @context.closest(selector)?.ctrl ? null
+
+

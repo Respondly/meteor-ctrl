@@ -54,7 +54,7 @@ class Ctrl.CtrlDefinition
                   findParent(blazeView.parentView) # <== RECURSION.
 
         parent = instance.parent ? findParent(blazeView.parentView)
-        CtrlUtil.registerChild(parent, instance)
+        INTERNAL.registerChild(parent, instance)
 
         # Invoke the "init" method on the instance.
         invoke(@, 'init')

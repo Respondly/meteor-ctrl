@@ -19,7 +19,7 @@ describe 'Control', ->
       @try =>
           expect(ctrl.children.length).to.equal 3
           expect(ctrl.children[0].parent).to.equal ctrl
-          expect(ctrl.children.myFoo).to.equal instance.children.myFoo.ctrl
+          expect(ctrl.children.myFoo).to.equal instance.children.myFoo
       Util.delay 100, =>
         done()
 

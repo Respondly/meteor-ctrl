@@ -1,4 +1,4 @@
-describe 'Instance: parent / children', ->
+describe 'Instance: parent/children', ->
   afterEach -> Test.tearDown()
 
   it 'has children', (done) ->
@@ -9,6 +9,7 @@ describe 'Instance: parent / children', ->
 
           # Children array.
           expect(children.length).to.equal 3
+          expect(children[0]).to.be.an.instanceOf Ctrl.Ctrl
           expect(children[0].type).to.equal 'foo'
           expect(children[1].type).to.equal 'deepChild'
           expect(children[2].type).to.equal 'foo'
@@ -26,7 +27,7 @@ describe 'Instance: parent / children', ->
           child = instance.children.myChild
           grandChild = child.children[0]
           expect(grandChild.parent).to.equal child
-          expect(child.parent).to.equal instance
+          expect(child.parent).to.equal instance.ctrl
       done()
 
 
@@ -47,12 +48,13 @@ describe 'Instance: appendChild', ->
 
   it 'appends a child control directly within the parent', (done) ->
     Test.insert 'foo', (instance) =>
+      ctrl = instance.ctrl
       childCtrl = instance.appendCtrl 'foo', null
       @try =>
           expect(instance.el('> .foo').length).to.equal 1
-          expect(childCtrl.parent).to.equal instance.ctrl
+          expect(childCtrl.parent).to.equal ctrl
           expect(childCtrl.context.parent).to.equal instance
-          expect(instance.children[0]).to.equal childCtrl.context
+          expect(instance.children[0]).to.equal childCtrl
           expect(instance.ctrl.children[0]).to.equal childCtrl
       done()
 

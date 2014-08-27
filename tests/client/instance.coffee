@@ -94,7 +94,6 @@ describe 'Instance: dispose', ->
   afterEach -> Test.tearDown()
 
   it 'results in an "isDisposed" state', (done) ->
-
     Test.insert 'deep', (instance) =>
       children = instance.children.clone()
       @try =>
@@ -161,17 +160,17 @@ describe 'Instance: data', ->
       @try => expect(instance.helpers.data).to.equal undefined
       done()
 
-  it 'has copes the "data" value to the instance', (done) ->
+  it 'copies the "data" value to the instance', (done) ->
     Test.insert 'deep', (instance) =>
       @try =>
           child = instance.children.myChild
-          expect(child.data).to.eql { foo:123 }
+          expect(child.context.data).to.eql { foo:123 }
       done()
 
-  it 'has makes the "data" value available on [helpers]', (done) ->
+  it 'makes the "data" value available on [helpers]', (done) ->
     Test.insert 'deep', (instance) =>
       @try =>
-          child = instance.children.myChild
+          child = instance.children.myChild.context
           expect(child.helpers.data()).to.eql { foo:123 }
       done()
 
