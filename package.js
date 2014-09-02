@@ -7,7 +7,7 @@ Package.describe({
 Package.on_use(function (api) {
   api.use('http', ['client', 'server']);
   api.use(['templating', 'ui', 'spacebars'], 'client');
-  api.use(['coffeescript', 'sugar']);
+  api.use(['coffeescript']);
   api.use(['util']);
   api.export('Ctrl');
   api.export('Util');
