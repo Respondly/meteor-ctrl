@@ -39,6 +39,7 @@ class Ctrl.CtrlInstance
     @helpers[key] = wrap(func) for key, func of def.helpers
     @helpers.instance ?= -> "#{ self.type }##{ self.uid }" # Standard output for {{instance}} within a template.
     @helpers.uid ?= @uid
+    @helpers.api ?= @api
     @model = wrap(def.model)
 
     # Store data.
