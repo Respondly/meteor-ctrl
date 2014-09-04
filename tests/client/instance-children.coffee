@@ -25,7 +25,7 @@ describe 'Instance: parent/children', ->
     Test.insert 'deep', (instance) =>
       @try =>
           child = instance.children.myChild
-          grandChild = child.children[0]
+          grandChild = child.context.children[0]
           expect(grandChild.parent).to.equal child
           expect(child.parent).to.equal instance.ctrl
       done()
@@ -55,7 +55,6 @@ describe 'Instance: appendChild', ->
           expect(childCtrl.parent).to.equal ctrl
           expect(childCtrl.context.parent).to.equal instance
           expect(instance.children[0]).to.equal childCtrl
-          expect(instance.ctrl.children[0]).to.equal childCtrl
       done()
 
 

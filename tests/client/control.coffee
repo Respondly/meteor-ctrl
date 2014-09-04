@@ -5,23 +5,19 @@ describe 'Control', ->
     Test.insert 'foo', (instance) =>
       ctrl = instance.ctrl
       @try =>
-
           expect(ctrl.context).to.equal instance
           expect(ctrl.type).to.equal 'foo'
           expect(ctrl.uid).to.equal instance.uid
-
       done()
 
 
-  it 'parent/children', (done) ->
+  it 'parent', (done) ->
     Test.insert 'deep', (instance) =>
       ctrl = instance.ctrl
       @try =>
-          expect(ctrl.children.length).to.equal 3
-          expect(ctrl.children[0].parent).to.equal ctrl
-          expect(ctrl.children.myFoo).to.equal instance.children.myFoo
-      Util.delay 100, =>
-        done()
+          childCtrl = instance.children.myFoo
+          expect(childCtrl.parent).to.equal ctrl
+      done()
 
 
   it 'passes [el] method to [instance.find]', (done) ->
@@ -62,17 +58,6 @@ describe 'Control: dispose', ->
           expect(instance.isDisposed).to.equal true
           expect(ctrl.isDisposed).to.equal true
           expect(Ctrl.ctrls[ctrl.uid]).to.equal undefined
-      done()
-
-
-  it 'removes children on dispose', (done) ->
-    Test.insert 'deep', (instance) =>
-      ctrl = instance.ctrl
-      @try =>
-          count = ctrl.children.length
-          ctrl.children.myFoo.dispose()
-          expect(ctrl.children.myFoo).to.equal undefined
-          expect(ctrl.children.length).to.equal count - 1
       done()
 
 

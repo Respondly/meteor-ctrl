@@ -382,10 +382,7 @@ INTERNAL.registerChild = (parentInstance, childInstance) ->
 
   # Update [children] collection.
   push(childInstance.ctrl, parentInstance.children)
-  push(childInstance.ctrl, parentInstance.ctrl.children)
-
   if id = childInstance.options.id
     parentInstance.children[id] = childInstance.ctrl
-    parentInstance.ctrl.children[id] = childInstance.ctrl
 
 

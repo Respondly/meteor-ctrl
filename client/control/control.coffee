@@ -11,7 +11,6 @@ class Ctrl.Ctrl
     @type     = instance.type
     @uid      = instance.uid
     @id       = instance.id if instance.id # NB: ID only exists if specified within the tmplate {{ id=123 }}
-    @children = []
 
     # Copy API.
     for key, func of instance.api
@@ -29,12 +28,6 @@ class Ctrl.Ctrl
     return if @isDisposed
     @isDisposed = true
     @context.dispose()
-
-    # Remove from parent.
-    if children = @parent?.children
-      index = _.indexOf(children, @)
-      children.splice(index, 1) if index > -1
-      delete children[@id]
 
 
   ###
