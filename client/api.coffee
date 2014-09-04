@@ -1,14 +1,5 @@
 #= base
-
-Ctrl = {} unless Ctrl?
-Ctrl.defs = {}
-Ctrl.ctrls = {} # Referenced by the instance UID.
-
-
-
-# --------------------------------------------------------------------------
-
-
+#= require ./ns.js
 
 ###
 Registers one or more control definitions.

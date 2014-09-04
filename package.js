@@ -9,12 +9,11 @@ Package.on_use(function (api) {
   api.use(['templating', 'ui', 'spacebars'], 'client');
   api.use(['coffeescript']);
   api.use(['util']);
-  api.export('Ctrl');
-  api.export('Util');
+  api.export(['Ctrl', 'Ctrls', 'Util']);
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.add_files('client/tmpl/tmpl.html', 'client');
-  api.add_files('client/api.js', 'client');
+  api.add_files('client/ns.js', 'client');
   api.add_files('client/api.coffee', 'client');
   api.add_files('client/control/control.coffee', 'client');
   api.add_files('client/control/definition.coffee', 'client');
