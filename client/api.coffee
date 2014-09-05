@@ -38,3 +38,13 @@ Ctrl.fromElement = (el) ->
 
 
 
+
+
+
+
+###
+Retrieves the currently focused control.
+@returns a [Ctrl] or null if a control does not have the focus.
+###
+Ctrl.focused = -> Ctrl.fromElement(document.activeElement)
+

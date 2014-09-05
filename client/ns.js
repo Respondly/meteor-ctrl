@@ -9,7 +9,7 @@ Ctrl.ctrls = {} // Referenced by the instance UID.
 
 
 /*
-General namespace for various UI controls.
+General namespace for use by UI controls.
 */
 Ctrls = {}
 
