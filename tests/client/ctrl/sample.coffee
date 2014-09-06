@@ -10,7 +10,10 @@ Ctrl.define
       { name:'my-model' }
 
 
+# ----------------------------------------------------------------------
 
+
+Ctrl.define
   'apiTest':
     api:
       myProp: (value) -> @prop 'myProp', value, default:123
@@ -19,20 +22,33 @@ Ctrl.define
       children: -> 'my-children'
 
 
+# ----------------------------------------------------------------------
 
+
+Ctrl.define
   'foo':
+    api:
+      text: (value) -> @prop 'text', value
+
     helpers:
-      title: -> "Foo:#{ @uid }"
+      text: -> "#{ @api.text() }:#{ @uid }"
 
 
+# ----------------------------------------------------------------------
 
+
+Ctrl.define
   'deep':
     helpers:
       childData: -> { foo:123 }
+
   'deepChild': {}
 
 
+# ----------------------------------------------------------------------
 
+
+Ctrl.define
   'autorun':
     ready: ->
       @runCount = 0
@@ -41,6 +57,38 @@ Ctrl.define
         @runCount += 1
 
 
+# ----------------------------------------------------------------------
+
+
+Ctrl.define
   'eventTest': {}
-    # helpers:
-    #   title: -> "Foo:#{ @uid }"
+
+
+# ----------------------------------------------------------------------
+
+
+Ctrl.define
+  'render-outer':
+    init: ->
+      @onInitCount = 0
+      @onReadyCount = 0
+
+    helpers:
+      myFoo: ->
+        def =
+          type:'foo'
+          data: { text:'Hello!' }
+          bar:123
+
+          onInit: (ctrl) =>
+            @onInitCount += 1
+            @onInitArg = ctrl
+            @onInitContext = @
+
+          onReady: (ctrl) =>
+            @onReadyCount += 1
+            @onReadyArg = ctrl
+            @onReadyContext = @
+
+
+

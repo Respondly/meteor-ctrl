@@ -56,14 +56,34 @@ class Ctrl.CtrlDefinition
         parent = instance.parent ? findParent(blazeView.parentView)
         INTERNAL.registerChild(parent, instance)
 
+        # Flatten out the {options} object.
+        # ie. If there are sub-options that have been passed in
+        #     put them all on the base {options} object.
+        #     See the {{> render}} template for the use-case for this.
+        options = instance.options
+        if options.options
+          for key, value of options.options
+            options[key] = value
+          delete options.options
+
+
+
         # Invoke the "init" method on the instance.
         invoke(@, 'init')
+
+        # Invoke any "init" callback handlers.
+        # NB: These may be set when using the {{> render}} template.
+        if fn = options.onInit
+          if Object.isFunction(fn)
+            fn(instance.ctrl)
+
 
 
     # CREATED (DOM Ready).
     tmpl.rendered = ->
         instance = @__instance__
         instance.isReady = true
+        ctrl = instance.ctrl
 
         # Ensure that the control has a single root element.
         if @__view__.domrange.members.length > 1
@@ -75,9 +95,14 @@ class Ctrl.CtrlDefinition
         # Invoke the "created" method on the instance.
         invoke(@, 'ready')
 
+        # Check if an "onReady" handler was specified on the options.
+        if fn = instance.options.onReady
+          if Object.isFunction(fn)
+            fn(ctrl)
+
         # Invoke any "ready" handlers.
         if handlers = instance.__internal__.onReady
-          handlers.invoke(instance)
+          handlers.invoke(ctrl)
           handlers.dispose()
           delete instance.__internal__.onReady
 

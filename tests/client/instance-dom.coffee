@@ -72,13 +72,13 @@ describe 'Instance: [find] and [el] methods', ->
       done()
 
   it 'finds child elements with CSS selector', (done) ->
-    Test.insert 'foo', (instance) =>
+    Test.insert 'foo', { text:'Hello' }, (instance) =>
       @try =>
           el = instance.find('code')
-          expect(el.html()).to.equal "Foo:#{ instance.uid }"
+          expect(el.html()).to.equal "Hello:#{ instance.uid }"
 
           el = instance.el('code')
-          expect(el.html()).to.equal "Foo:#{ instance.uid }"
+          expect(el.html()).to.equal "Hello:#{ instance.uid }"
 
       done()
 

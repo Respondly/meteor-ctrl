@@ -1,6 +1,6 @@
 <template name='foo'>
   <div class='foo ctrl'>
-    <code>{{title}}</code>
+    <code>{{ text }}</code>
   </div>
 </template>
 
@@ -39,5 +39,13 @@
 <template name='eventTest'>
   <div class='eventTest'>
     <button class='btn'></button>
+  </div>
+</template>
+
+
+
+<template name='render-outer'>
+  <div>
+    {{> render ctrl=myFoo }}
   </div>
 </template>

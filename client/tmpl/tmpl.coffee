@@ -1,10 +1,17 @@
 ###
 The container template for a [Ctrl].
 
-  This dynamically renders the declared 'type' passing it a
-  Ctrl [Instance] as the context.
+    This dynamically renders the declared 'type' passing it a
+    Ctrl [Instance] as the context.
 
-  The type corresponds with the <template> name.
+    The type corresponds with the <template> name.
+
+Eample usage:
+
+
+    {{> ctrl type="my-type" data=data id='myThing' foo=123 }}
+
+
 
 ###
 Template.ctrl.helpers
@@ -31,5 +38,48 @@ Template.ctrl.helpers
 
     # Return the instance helpers as the data context for the rendered template.
     return new Ctrl.CtrlInstance(ctrl.def, options).helpers
+
+
+
+
+# ----------------------------------------------------------------------
+
+
+
+###
+Provides a way for a [Ctrl] to be easily rendered as the result
+of a helper function.
+
+  For example:
+
+        {{> render ctrl=myFoo }}
+
+  Where "myFoo" is the result of a helper method:
+
+      helpers:
+        myFoo: ->
+          def =
+            type: 'foo'
+            data: { text:'Hello from Data' }
+            onInit: (ctrl) =>
+            onReady: (ctrl) =>
+            bar: 123 # Any argument for the [options].
+
+
+###
+Template.render.helpers
+  ctrlRef: ->
+    if ctrl = @ctrl
+
+      options = {}
+      for key, value of ctrl
+        unless key is 'type' or key is 'data'
+          options[key] = value
+
+      result =
+        type: ctrl.type
+        data: ctrl.data
+        options: options
+
 
 

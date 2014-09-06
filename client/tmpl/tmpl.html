@@ -3,3 +3,11 @@
     {{> UI.dynamic template=name data=context }}
   {{/if}}
 </template>
+
+
+
+<template name='render'>
+  {{#with ctrlRef}}
+    {{> ctrl type=type data=data options=options }}
+  {{/with}}
+</template>

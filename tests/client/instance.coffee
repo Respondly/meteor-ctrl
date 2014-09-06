@@ -7,6 +7,7 @@ describe 'Instance', ->
         expect(Object.isString(instance.uid)).to.equal true
         expect(instance.type).to.equal 'foo'
         expect(instance.ctrl).to.be.an.instanceOf Ctrl.Ctrl
+        expect(instance.data).to.equal undefined
         expect(Object.isObject(instance.api)).to.equal true
       done()
 
@@ -27,15 +28,15 @@ describe 'Instance', ->
     count = 0
     self = null
     arg = null
-    instance.onReady (instance) ->
+    instance.onReady (ctrl) ->
           self = @
-          arg = instance
+          arg = ctrl
           count += 1
     Util.delay =>
       @try =>
           expect(count).to.equal 1
           expect(self).to.equal instance
-          expect(arg).to.equal instance
+          expect(arg).to.equal instance.ctrl
       done()
 
 
@@ -152,6 +153,7 @@ describe 'Instance: API', ->
 
 # ----------------------------------------------------------------------
 
+
 describe 'Instance: data', ->
   afterEach -> Test.tearDown()
 
@@ -175,8 +177,51 @@ describe 'Instance: data', ->
       done()
 
 
+# ----------------------------------------------------------------------
+
+
+describe 'Instance: options', ->
+  afterEach -> Test.tearDown()
+
+  it 'has empty {} options', (done) ->
+    Test.insert 'foo', (instance) =>
+      @try => expect(instance.options).to.eql {}
+      done()
+
+  it 'has simple {foo:123} options', (done) ->
+    Test.insert 'foo', {foo:123}, (instance) =>
+      @try =>
+        expect(instance.options.foo).to.equal 123
+      done()
+
+  it 'has data as options', (done) ->
+    data = { bar:'abc' }
+    Test.insert 'foo', { foo:123, data:data }, (instance) =>
+      @try =>
+        expect(instance.options.foo).to.equal 123
+        expect(instance.options.data).to.equal data
+        expect(instance.data).to.equal data
+      done()
+
+  it 'flattens sub-options onto the base {options} object', (done) ->
+    options =
+      foo:123
+      options:
+        bar:456
+        fn: -> 'hello'
+
+    Test.insert 'foo', options, (instance) =>
+      @try =>
+        expect(instance.options.foo).to.equal 123
+        expect(instance.options.bar).to.equal 456
+        expect(instance.options.fn()).to.equal 'hello'
+        expect(instance.options.options).to.equal undefined
+      done()
+
+
 
 # ----------------------------------------------------------------------
+
 
 
 describe 'instance.defaultValue()', ->
