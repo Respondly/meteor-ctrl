@@ -66,10 +66,12 @@ class Ctrl.CtrlDefinition
             options[key] = value
           delete options.options
 
-
-
         # Invoke the "init" method on the instance.
         invoke(@, 'init')
+
+        # Register any "destroyed" handlers that have been passed as {option}'s.
+        if fn = instance.options.onDestroyed
+          instance.onDestroyed(fn)
 
         # Invoke any "init" callback handlers.
         # NB: These may be set when using the {{> render}} template.

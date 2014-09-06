@@ -72,6 +72,7 @@ Ctrl.define
     init: ->
       @onInitCount = 0
       @onReadyCount = 0
+      @onDestroyedCount = 0
 
     helpers:
       myFoo: ->
@@ -89,6 +90,11 @@ Ctrl.define
             @onReadyCount += 1
             @onReadyArg = ctrl
             @onReadyContext = @
+
+          onDestroyed: (ctrl) =>
+            @onDestroyedCount += 1
+            @onDestroyedArg = ctrl
+            @onDestroyedContext = @
 
 
 

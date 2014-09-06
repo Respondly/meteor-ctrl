@@ -48,6 +48,13 @@ class Ctrl.CtrlInstance
         @data = @options.data
         @helpers.data = => @data
 
+    # Register any handlers that have been passed as {option}'s.
+    if fn = options.onReady
+      if Object.isFunction(fn)
+        console.log 'fn', fn
+
+
+
     # Finish up.
     @ctrl = new Ctrl.Ctrl(@)
 
@@ -99,6 +106,13 @@ class Ctrl.CtrlInstance
     internal.session?.dispose()
     internal.hash?.dispose()
     @ctrl.dispose()
+
+    # Invoke callbacks.
+    if destroyedHandlers = internal.onDestroyed
+      destroyedHandlers.invoke(@ctrl)
+      destroyedHandlers.dispose()
+
+
 
 
 
@@ -179,11 +193,27 @@ class Ctrl.CtrlInstance
   onReady: (func) ->
     if @isReady
       # Invoke immediately if already "ready".
-      func.call(@) if Object.isFunction(func)
+      func(@ctrl) if Object.isFunction(func)
 
     else
-      handlers = @__internal__.onReady ?= new Handlers(@)
+      handlers = @__internal__.onReady ?= new Handlers()
       handlers.push(func)
+
+
+
+  ###
+  Registers a handler to be run when the control is disposed of.
+  @param func: The function to invoke.
+  ###
+  onDestroyed: (func) ->
+    if @isDisposed
+      # Invoke immediately if already "ready".
+      func(@ctrl) if Object.isFunction(func)
+
+    else
+      handlers = @__internal__.onDestroyed ?= new Handlers()
+      handlers.push(func)
+
 
 
 

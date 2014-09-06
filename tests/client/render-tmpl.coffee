@@ -48,5 +48,18 @@ describe '{{> render}} template', ->
       done()
 
 
+  it 'invokes the [onDestroyed] callback', (done) ->
+    Test.insert 'render-outer', (instance) =>
+      @try =>
+        expect(instance.onDestroyedCount).to.equal 0
+
+        fooCtrl = instance.children[0]
+        fooCtrl.dispose()
+
+        expect(instance.onDestroyedCount).to.equal 1
+        expect(instance.onDestroyedArg).to.equal fooCtrl
+        expect(instance.onDestroyedContext).to.equal instance
+      done()
+
 
 

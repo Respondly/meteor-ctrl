@@ -37,6 +37,7 @@ Package.on_test(function (api) {
   api.add_files('tests/client/ctrl/sample.styl', 'client');
   // api.add_files('tests/client/control.coffee', 'client');
   // api.add_files('tests/client/dom.coffee', 'client');
+  // api.add_files('tests/client/instance-callbacks.coffee', 'client');
   // api.add_files('tests/client/instance-children.coffee', 'client');
   // api.add_files('tests/client/instance-deps.coffee', 'client');
   // api.add_files('tests/client/instance-dom.coffee', 'client');

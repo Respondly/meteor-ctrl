@@ -43,8 +43,14 @@ class Ctrl.Ctrl
   Registers a handler to be run when the ctrl is DOM "ready".
   @param func(ctrl): The function to invoke.
   ###
-  onReady: (func) ->
-    @context.onReady => func?.call(@, @)
+  onReady: (func) -> @context.onReady(func)
+
+
+  ###
+  Registers a handler to be run when the control is disposed of.
+  @param func: The function to invoke.
+  ###
+  onDestroyed: (func) -> @context.onDestroyed(func)
 
 
 

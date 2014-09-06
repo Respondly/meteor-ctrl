@@ -23,60 +23,10 @@ describe 'Instance', ->
       done()
 
 
-  it 'invokes [onReady] callbacks (instance)', (done) ->
-    instance = Ctrl.defs.foo.insert('body').context
-    count = 0
-    self = null
-    arg = null
-    instance.onReady (ctrl) ->
-          self = @
-          arg = ctrl
-          count += 1
-    Util.delay =>
-      @try =>
-          expect(count).to.equal 1
-          expect(self).to.equal instance
-          expect(arg).to.equal instance.ctrl
-      done()
-
-
-  it 'invokes [onReady] callbacks (ctrl)', (done) ->
-    ctrl = Ctrl.defs.foo.insert('body')
-    count = 0
-    self = null
-    arg = null
-    ctrl.onReady (c) ->
-        count += 1
-        self = @
-        arg = c
-    Util.delay =>
-      @try =>
-          expect(count).to.equal 1
-          expect(self).to.equal ctrl
-          expect(arg).to.equal ctrl
-      done()
-
-
   it 'sets the [isReady] flag', (done) ->
     Test.insert 'foo', (instance) =>
       @try =>
         expect(instance.isReady).to.equal true
-      done()
-
-
-  it 'invokes [onReady] immediately if the Ctrl is already "ready"', (done) ->
-    Test.insert 'foo', (instance) =>
-      ctrl = instance.ctrl
-      @try =>
-          expect(ctrl.el()?).to.equal true # Is Ready.
-          count = 0
-          self = null
-          ctrl.onReady ->
-              # Immediately invoked.
-              self = @
-              count += 1
-          expect(count).to.equal 1
-          expect(self).to.be.an.instanceOf Ctrl.Ctrl
       done()
 
 
@@ -88,6 +38,8 @@ describe 'Instance', ->
       done()
 
 
+
+# ----------------------------------------------------------------------
 
 
 
