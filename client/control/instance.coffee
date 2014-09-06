@@ -48,13 +48,6 @@ class Ctrl.CtrlInstance
         @data = @options.data
         @helpers.data = => @data
 
-    # Register any handlers that have been passed as {option}'s.
-    if fn = options.onReady
-      if Object.isFunction(fn)
-        console.log 'fn', fn
-
-
-
     # Finish up.
     @ctrl = new Ctrl.Ctrl(@)
 
