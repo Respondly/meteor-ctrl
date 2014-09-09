@@ -85,5 +85,79 @@ describe 'Control: API', ->
 
 
 
+describe 'Control: focus', ->
+  afterEach -> Test.tearDown()
+
+  it 'puts focus onto the root element', (done) ->
+    Test.insert 'inputTest', (instance) =>
+      ctrl = instance.ctrl
+      ctrl.focus()
+      activeElement = document.activeElement
+      @try =>
+          expect(activeElement).to.equal ctrl.el()[0]
+      done()
+
+
+  it 'overrides focus within a custom API method', (done) ->
+    Test.insert 'wrappedInputTest', (instance) =>
+      ctrl = instance.ctrl
+      ctrl.focus()
+      activeElement = document.activeElement
+      @try =>
+          expect(activeElement).to.equal ctrl.el('input')[0]
+      done()
+
+
+
+describe 'Control: hasFocus', ->
+  afterEach -> Test.tearDown()
+
+  it 'does not have focus', (done) ->
+    Test.insert 'inputTest', (instance) =>
+      @try =>
+          expect(instance.ctrl.hasFocus()).to.equal false
+      done()
+
+  it 'does has focus on root', (done) ->
+    Test.insert 'inputTest', (instance) =>
+      ctrl = instance.ctrl
+      ctrl.focus()
+      @try =>
+          expect(ctrl.hasFocus()).to.equal true
+      done()
+
+  it 'does has focus on sub-element', (done) ->
+    Test.insert 'wrappedInputTest', (instance) =>
+      ctrl = instance.ctrl
+      ctrl.el('input').focus()
+      @try =>
+          expect(ctrl.hasFocus()).to.equal true
+      done()
+
+
+
+describe 'Control: blur', ->
+  afterEach -> Test.tearDown()
+
+  it 'removes focus from root element', (done) ->
+    Test.insert 'inputTest', (instance) =>
+      ctrl = instance.ctrl
+      ctrl.focus()
+      @try =>
+          expect(ctrl.hasFocus()).to.equal true
+          ctrl.blur()
+          expect(ctrl.hasFocus()).to.equal false
+      done()
+
+
+  it 'removes focus from sub-element', (done) ->
+    Test.insert 'wrappedInputTest', (instance) =>
+      ctrl = instance.ctrl
+      ctrl.focus()
+      @try =>
+          expect(ctrl.hasFocus()).to.equal true
+          ctrl.blur()
+          expect(ctrl.hasFocus()).to.equal false
+      done()
 
 

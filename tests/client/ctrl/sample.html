@@ -1,5 +1,5 @@
 <template name='foo'>
-  <div class='foo ctrl'>
+  <div class='foo ctrl' tabindex='0'>
     <code>{{ text }}</code>
   </div>
 </template>
@@ -47,5 +47,19 @@
 <template name='render-outer'>
   <div>
     {{> render ctrl=myFoo }}
+  </div>
+</template>
+
+
+
+<template name='inputTest'>
+  <input type='text' />
+</template>
+
+
+
+<template name='wrappedInputTest'>
+  <div>
+    <input type='text' />
   </div>
 </template>

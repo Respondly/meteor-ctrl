@@ -156,6 +156,7 @@ class Ctrl.CtrlInstance
   @param args: The control arguments.
   ###
   appendCtrl: (def, el, beforeEl, args) ->
+
     # Setup initial conditions.
     if beforeEl?
       if not args? and not (beforeEl.jquery or beforeEl.nodeType is 1)
@@ -163,8 +164,14 @@ class Ctrl.CtrlInstance
         beforeEl = null
 
     # Look up the Ctrl definition if required.
-    def = Ctrl.defs[def] if Object.isString(def)
-    throw new Error('Control definition required') unless def?
+    if Object.isString(def)
+      typeName = def
+      def = Ctrl.defs[typeName]
+
+    unless def?
+      msg = '[appendCtrl] definition required.'
+      msg += " Type not found: '#{ typeName }'" if typeName
+      throw new Error(msg)
 
     # Insert the control.
     el = @find(el) unless el?.jquery?
@@ -370,7 +377,6 @@ class Ctrl.CtrlInstance
 
     # Finish up.
     result
-
 
 
 

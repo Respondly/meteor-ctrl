@@ -95,3 +95,31 @@ class Ctrl.Ctrl
   closest: (selector) -> @context.closest(selector)?.ctrl ? null
 
 
+  ###
+  Places focus on the control.
+
+    NOTE: Override this method to place focus on a specific
+          child element within the control
+
+  ###
+  focus: -> @el().focus()
+
+
+  ###
+  Removes focus from the element.
+  ###
+  blur: ->
+    if @hasFocus()
+      $(document.activeElement).blur()
+
+
+  ###
+  Determines whether the control has focus.
+  ###
+  hasFocus: ->
+    elFocused = document.activeElement
+    el = @el()
+    return true if el[0] is elFocused
+    el.has(elFocused).length > 0
+
+

@@ -97,4 +97,15 @@ Ctrl.define
             @onDestroyedContext = @
 
 
+# ----------------------------------------------------------------------
+
+Ctrl.define
+  'inputTest': {}
+
+
+Ctrl.define
+  'wrappedInputTest':
+    api:
+      focus: -> @el('input').focus()
+
 
