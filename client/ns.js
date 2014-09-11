@@ -15,6 +15,7 @@ Ctrls = {}
 
 
 /*
-Shared internally to package.
+PACAKGE LEVEL Scope.
+NOTE: Must be a JS file to share the variables at package-scope.
 */
-INTERNAL = {}
+PKG = {}; // Internal package API - scoped within package only.

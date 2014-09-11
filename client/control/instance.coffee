@@ -178,7 +178,7 @@ class Ctrl.CtrlInstance
     ctrl = def.insert(el, beforeEl, args, @ctrl)
 
     # Establish the parent/child relationships.
-    INTERNAL.registerChild(@, ctrl.context)
+    PKG.registerChild(@, ctrl.context)
 
     # Finish up.
     ctrl
@@ -398,7 +398,7 @@ events = (instance) ->
 
 
 
-INTERNAL.registerChild = (parentInstance, childInstance) ->
+PKG.registerChild = (parentInstance, childInstance) ->
   return unless (parentInstance? and childInstance?)
 
   # Update parent reference.

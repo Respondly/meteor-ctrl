@@ -54,7 +54,7 @@ class Ctrl.CtrlDefinition
                   findParent(blazeView.parentView) # <== RECURSION.
 
         parent = instance.parent ? findParent(blazeView.parentView)
-        INTERNAL.registerChild(parent, instance)
+        PKG.registerChild(parent, instance)
 
         # Flatten out the {options} object.
         # ie. If there are sub-options that have been passed in
