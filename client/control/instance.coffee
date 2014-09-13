@@ -44,10 +44,9 @@ class Ctrl.CtrlInstance
     @model = wrap(def.model)
 
     # Store data.
+    @data = @options.data ? {}
     unless @helpers.data?
-      if @options.data
-        @data = @options.data
-        @helpers.data = => @data
+      @helpers.data = @data
 
     # Finish up.
     @ctrl = new Ctrl.Ctrl(@)

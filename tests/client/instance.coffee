@@ -4,11 +4,16 @@ describe 'Instance', ->
   it 'has standard structure', (done) ->
     Test.insert 'foo', (instance) =>
       @try =>
-        expect(Object.isString(instance.uid)).to.equal true
-        expect(instance.type).to.equal 'foo'
-        expect(instance.ctrl).to.be.an.instanceOf Ctrl.Ctrl
-        expect(instance.data).to.equal undefined
-        expect(Object.isObject(instance.api)).to.equal true
+          expect(Object.isString(instance.uid)).to.equal true
+          expect(instance.type).to.equal 'foo'
+          expect(instance.ctrl).to.be.an.instanceOf Ctrl.Ctrl
+          expect(instance.data).to.eql {}
+          expect(instance.options).to.eql {}
+          expect(instance.children).to.eql []
+          expect(instance.isReady).to.equal true
+          expect(instance.api).to.be.an.instanceOf Object
+          expect(instance.helpers).to.be.an.instanceOf Object
+          expect(instance.model).to.be.an.instanceOf Function
       done()
 
 
@@ -109,9 +114,22 @@ describe 'Instance: API', ->
 describe 'Instance: data', ->
   afterEach -> Test.tearDown()
 
-  it 'has no data', (done) ->
+  it 'has an empty data object', (done) ->
     Test.insert 'foo', (instance) =>
-      @try => expect(instance.helpers.data).to.equal undefined
+      @try => expect(instance.data).to.eql {}
+      done()
+
+  it 'has the same empty data object on helpers', (done) ->
+    Test.insert 'foo', (instance) =>
+      @try => expect(instance.helpers.data).to.equal instance.data
+      done()
+
+  it 'stores the "data" options argument', (done) ->
+    myData = {foo:123}
+    Test.insert 'foo', data:myData, (instance) =>
+      @try =>
+        expect(instance.data).to.equal myData
+        expect(instance.helpers.data).to.equal myData
       done()
 
   it 'copies the "data" value to the instance', (done) ->
@@ -125,7 +143,7 @@ describe 'Instance: data', ->
     Test.insert 'deep', (instance) =>
       @try =>
           child = instance.children.myChild.context
-          expect(child.helpers.data()).to.eql { foo:123 }
+          expect(child.helpers.data).to.eql { foo:123 }
       done()
 
 
