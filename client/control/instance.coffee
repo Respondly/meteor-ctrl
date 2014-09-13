@@ -40,6 +40,7 @@ class Ctrl.CtrlInstance
     @helpers.instance ?= -> "#{ self.type }##{ self.uid }" # Standard output for {{instance}} within a template.
     @helpers.uid ?= @uid
     @helpers.api ?= @api
+    @helpers.options ?= @options
     @model = wrap(def.model)
 
     # Store data.
