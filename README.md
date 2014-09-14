@@ -3,7 +3,7 @@ Logical UI control abstraction around blaze.
 
 
 
-# Run Tests
+## Run Tests
 From the package folder:
 
     mrt test-packages ctrl
@@ -12,7 +12,7 @@ From the package folder:
 
 
 
-# License (MIT)
+## License (MIT)
 
 Copyright © 2014, **Respondly**
 
