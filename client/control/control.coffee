@@ -116,10 +116,6 @@ class Ctrl.Ctrl
   ###
   Determines whether the control has focus.
   ###
-  hasFocus: ->
-    elFocused = document.activeElement
-    el = @el()
-    return true if el[0] is elFocused
-    el.has(elFocused).length > 0
+  hasFocus: -> @context.hasFocus()
 
 

@@ -141,6 +141,17 @@ class Ctrl.CtrlInstance
 
 
   ###
+  Determines whether the control has focus.
+  ###
+  hasFocus: ->
+    elFocused = document.activeElement
+    el = @el()
+    return true if el[0] is elFocused
+    el.has(elFocused).length > 0
+
+
+
+  ###
   Appends a child control.
   @param def: The Ctrl definition
                 - Object: The definition object.

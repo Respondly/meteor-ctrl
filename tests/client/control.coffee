@@ -109,12 +109,13 @@ describe 'Control: focus', ->
 
 
 
-describe 'Control: hasFocus', ->
+describe 'Control/Instance: hasFocus', ->
   afterEach -> Test.tearDown()
 
   it 'does not have focus', (done) ->
     Test.insert 'inputTest', (instance) =>
       @try =>
+          expect(instance.hasFocus()).to.equal false
           expect(instance.ctrl.hasFocus()).to.equal false
       done()
 
@@ -123,6 +124,7 @@ describe 'Control: hasFocus', ->
       ctrl = instance.ctrl
       ctrl.focus()
       @try =>
+          expect(instance.hasFocus()).to.equal true
           expect(ctrl.hasFocus()).to.equal true
       done()
 
@@ -131,6 +133,7 @@ describe 'Control: hasFocus', ->
       ctrl = instance.ctrl
       ctrl.el('input').focus()
       @try =>
+          expect(instance.hasFocus()).to.equal true
           expect(ctrl.hasFocus()).to.equal true
       done()
 
