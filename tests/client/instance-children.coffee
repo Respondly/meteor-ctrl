@@ -91,7 +91,7 @@ describe 'Instance: findChildren', ->
       done()
 
 
-  it 'finds multiple children witht he same type-name', (done) ->
+  it 'finds multiple children with he same type-name', (done) ->
     Test.insert 'deep', (instance) =>
       @try =>
           result = instance.findChildren(type:'foo')
@@ -171,6 +171,8 @@ describe 'Instance: findChild', ->
           result = instance.findChild (ctrl) ->
           expect(result).to.eql undefined
       done()
+
+
 
 
 
