@@ -141,6 +141,43 @@ class Ctrl.CtrlInstance
 
 
   ###
+  Retrieves the child controls that matches the given filter.
+  @param filter:  The filter to look for, examples:
+                  func(ctrl)
+                  { type:'type-name' }
+                  { id:'my-id' }
+  @returns an array of matching child controls.
+  ###
+  findChildren: (filter = {}) ->
+    matches = (fn) =>
+          result = @children.map (child) -> child if fn(child)
+          result.compact()
+
+    if Object.isString(filter.type)
+      return matches (child) -> child.type.endsWith( filter.type )
+
+    if Object.isString(filter.id)
+      return matches (child) -> child.id is filter.id
+
+    if Object.isFunction(filter)
+      return matches (child) -> filter(child)
+
+    [] # Nothing found.
+
+
+  ###
+  Retrieves the first child control that matches the given filter.
+  @param filter:  The filter to look for, examples:
+                  func(ctrl)
+                  { type:'type-name' }
+                  { id:'my-id' }
+  @returns the matching child controls or [undefined].
+  ###
+  findChild: (filter) -> @findChildren(filter)[0]
+
+
+
+  ###
   Determines whether the control has focus.
   ###
   hasFocus: ->
