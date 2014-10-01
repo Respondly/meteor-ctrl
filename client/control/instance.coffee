@@ -191,19 +191,19 @@ class Ctrl.CtrlInstance
   ###
   Appends a child control.
   @param def: The Ctrl definition
-                - Object: The definition object.
-                - String: The type of the Ctrl.
+                  - Object: The definition object.
+                  - String: The type of the Ctrl.
 
-  @param el:  The element to insert within. Can be:
-                - jQuery element
-                - String (CSS selector)
-                - null (uses root element of the control)
+  @param intoEl: The element to insert within. Can be:
+                  - jQuery element
+                  - String (CSS selector)
+                  - null (uses root element of the control)
 
   @param beforeEl:  (optional) The element to insert before.
 
   @param args: The control arguments.
   ###
-  appendCtrl: (def, el, beforeEl, args) ->
+  appendCtrl: (def, intoEl, beforeEl, args) ->
 
     # Setup initial conditions.
     if beforeEl?
@@ -222,8 +222,8 @@ class Ctrl.CtrlInstance
       throw new Error(msg)
 
     # Insert the control.
-    el = @find(el) unless el?.jquery?
-    ctrl = def.insert(el, beforeEl, args, @ctrl)
+    intoEl = @find(intoEl) unless intoEl?.jquery?
+    ctrl = def.insert(intoEl, beforeEl, args, @ctrl)
 
     # Establish the parent/child relationships.
     PKG.registerChild(@, ctrl.context)
