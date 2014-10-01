@@ -5,9 +5,13 @@ describe 'instance.ancestor()', ->
     Test.insert 'deep', (instance) =>
       @try =>
           deepChild = instance.children.myChild.context.children.foo
+          expect(deepChild.ancestor()).to.equal null
+          expect(deepChild.ancestor(type:null)).to.equal null
+          expect(deepChild.ancestor(type:'')).to.equal null
           expect(deepChild.ancestor(type:'not-exist')).to.equal null
           expect(deepChild.context.ancestor(type:'not-exist')).to.equal null
       done()
+
 
   it 'finds the first ancestor', (done) ->
     Test.insert 'deep', (instance) =>
@@ -17,6 +21,25 @@ describe 'instance.ancestor()', ->
           expect(deepChild.context.ancestor(type:'deep')).to.equal instance
       done()
 
+
+  it 'defaults a string parmeter to { type:string }', (done) ->
+    Test.insert 'deep', (instance) =>
+      @try =>
+          deepChild = instance.children.myChild.context.children.foo
+          expect(deepChild.ancestor('deep')).to.equal instance.ctrl
+          expect(deepChild.context.ancestor('deep')).to.equal instance
+      done()
+
+
+  it 'finds the first using a partial type-name', (done) ->
+    Test.insert 'deep', (instance) =>
+      @try =>
+          deepChild = instance.children.myChild.context.children.foo
+          ancestor = deepChild.ancestor(type:'-child')
+          expect(ancestor).to.equal instance.children.myChild
+      done()
+
+
   it 'does not find the same type ancestor', (done) ->
     Test.insert 'deep', (instance) =>
       @try =>
@@ -24,6 +47,8 @@ describe 'instance.ancestor()', ->
           expect(deepChild.ancestor(type:'foo')).to.equal null
           expect(deepChild.context.ancestor(type:'foo')).to.equal null
       done()
+
+
 
 
 # ----------------------------------------------------------------------
@@ -59,6 +84,7 @@ describe 'instance.closest()', ->
 
 
 # ----------------------------------------------------------------------
+
 
 
 describe 'Instance: [find] and [el] methods', ->

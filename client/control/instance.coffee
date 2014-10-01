@@ -299,10 +299,15 @@ class Ctrl.CtrlInstance
   Walks up the hierarchy returning the first ancestor that
   matches the given selector.
   @param selector:
-            - type: The name of the type to look for.
+            - string:          The type name to look for.
+            - { type:string }: The name of the type to look for.
+
   @returns The matching ancestor [Instance] or Null.
   ###
   ancestor: (selector = {}) ->
+    if Object.isString(selector) and not Util.isBlank(selector)
+      selector = type:selector
+
     walk = (instance) ->
               return null unless instance?
               if type = selector.type
@@ -432,7 +437,14 @@ class Ctrl.CtrlInstance
 
 
 
-matchType = (type, obj) -> obj?.type is type
+matchType = (type, obj) ->
+  if obj
+    return true if obj.type is type
+    if type.startsWith('-')
+      # Allow partial type names to be specified.
+      # Example, match 'my-list-item' with '-item'.
+      return true if obj.type.endsWith(type)
+    false
 
 
 
