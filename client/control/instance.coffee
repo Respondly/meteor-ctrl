@@ -143,12 +143,16 @@ class Ctrl.CtrlInstance
   ###
   Retrieves the child controls that matches the given filter.
   @param filter:  The filter to look for, examples:
-                  func(ctrl)
-                  { type:'type-name' }
-                  { id:'my-id' }
+                    - func(ctrl)
+                    - string: The type-name to to use (converts to { type:name })
+                    - { type:'type-name' }
+                    - { id:'my-id' }
   @returns an array of matching child controls.
   ###
   findChildren: (filter = {}) ->
+    if Object.isString(filter) and not Util.isBlank(filter)
+      filter = { type:filter }
+
     matches = (fn) =>
           result = @children.map (child) -> child if fn(child)
           result.compact()
@@ -306,7 +310,7 @@ class Ctrl.CtrlInstance
   ###
   ancestor: (selector = {}) ->
     if Object.isString(selector) and not Util.isBlank(selector)
-      selector = type:selector
+      selector = { type:selector }
 
     walk = (instance) ->
               return null unless instance?

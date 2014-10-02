@@ -91,6 +91,15 @@ describe 'Instance: findChildren', ->
       done()
 
 
+  it 'defaults to type-name when string is passed', (done) ->
+    Test.insert 'deep', (instance) =>
+      @try =>
+          result = instance.findChildren('-child')
+          expect(result.length).to.equal 1
+          expect(result[0].type).to.equal 'deep-child'
+      done()
+
+
   it 'finds multiple children with he same type-name', (done) ->
     Test.insert 'deep', (instance) =>
       @try =>
@@ -146,6 +155,16 @@ describe 'Instance: findChild', ->
       @try =>
           fooCtrls = instance.findChildren(type:'foo')
           result = instance.findChild(type:'foo')
+          expect(result.type).to.equal 'foo'
+          expect(result).to.equal fooCtrls[0]
+      done()
+
+
+  it 'defaults to type-name when string is passed', (done) ->
+    Test.insert 'deep', (instance) =>
+      @try =>
+          fooCtrls = instance.findChildren(type:'foo')
+          result = instance.findChild('foo')
           expect(result.type).to.equal 'foo'
           expect(result).to.equal fooCtrls[0]
       done()
