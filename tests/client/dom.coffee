@@ -1,4 +1,4 @@
-findElement = (uid) -> $("div.foo[data-ctrl-uid='#{ uid }']")
+findElement = (ctrl) -> $("div.foo[data-ctrl='#{ ctrl.type }##{ ctrl.uid }']")
 
 
 describe 'DOM: insert', ->
@@ -8,7 +8,7 @@ describe 'DOM: insert', ->
     Ctrl.defs.foo.insert('body').onReady (ctrl) =>
         @try ->
             # Ensure the element exist within the DOM.
-            el = findElement(ctrl.uid)
+            el = findElement(ctrl)
             expect(el[0]).to.exist
         done()
 
@@ -16,21 +16,21 @@ describe 'DOM: insert', ->
 describe 'Ctrl.fromElement', ->
   it 'via jQuery element', (done) ->
     Test.insert 'foo', (instance) =>
-        el = findElement(instance.uid)
+        el = findElement(instance)
         @try => expect(Ctrl.fromElement(el)).to.equal instance.ctrl
         done()
 
 
   it 'via DOM element', (done) ->
     Test.insert 'foo', (instance) =>
-        el = findElement(instance.uid)
+        el = findElement(instance)
         @try => expect(Ctrl.fromElement(el[0])).to.equal instance.ctrl
         done()
 
 
   it 'via CSS selector', (done) ->
     Test.insert 'foo', (instance) =>
-        @try => expect(Ctrl.fromElement("div.foo[data-ctrl-uid='#{ instance.uid }']")).to.equal instance.ctrl
+        @try => expect(Ctrl.fromElement("div.foo[data-ctrl='foo##{ instance.uid }']")).to.equal instance.ctrl
         done()
 
 

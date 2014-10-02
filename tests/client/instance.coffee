@@ -68,10 +68,10 @@ describe 'Instance: dispose', ->
   it 'removes the ctrl from the DOM', (done) ->
     Test.insert 'foo', (instance) =>
       @try =>
-          el = $("div.foo[data-ctrl-uid='#{ instance.uid }']")
+          el = $("div.foo[data-ctrl='foo##{ instance.uid }']")
           expect(el.length).to.equal 1
           instance.dispose()
-          el = $("div.foo[data-ctrl-uid='#{ instance.uid }']")
+          el = $("div.foo[data-ctrl='foo##{ instance.uid }']")
           expect(el.length).to.equal 0
       done()
 

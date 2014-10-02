@@ -93,8 +93,8 @@ describe 'Instance: [find] and [el] methods', ->
   it 'has both [find] and [el] methods', (done) ->
     Test.insert 'foo', (instance) =>
       @try =>
-          expect(instance.find().attr("data-ctrl-uid")).to.equal instance.uid
-          expect(instance.el().attr("data-ctrl-uid")).to.equal instance.uid
+          expect(instance.find().attr("data-ctrl")).to.equal "foo##{ instance.uid }"
+          expect(instance.el().attr("data-ctrl")).to.equal "foo##{ instance.uid }"
       done()
 
   it 'finds child elements with CSS selector', (done) ->

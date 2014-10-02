@@ -92,7 +92,7 @@ class Ctrl.CtrlDefinition
           throw new Error("The [#{ self.type }] ctrl has more than one top-level element in the template.")
 
         # Add the UID attribute.
-        instance.find().attr('data-ctrl-uid', instance.uid)
+        instance.el().attr('data-ctrl', "#{ instance.type }##{ instance.uid }")
 
         # Invoke the "created" method on the instance.
         invoke(@, 'ready')
