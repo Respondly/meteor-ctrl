@@ -19,13 +19,26 @@ describe '{{> render}} template', ->
       done()
 
 
-  it 'renders with {option} arguments', (done) ->
+  it 'renders with {option} arguments specified on the definition', (done) ->
     Test.insert 'render-outer', (instance) =>
       @try =>
         fooCtrl = instance.children[0]
         options = fooCtrl.context.options
         expect(options.bar).to.equal 123
       done()
+
+  it 'renders with {option} specified on an [options] object', (done) ->
+    Test.insert 'render-options', (instance) =>
+      @try =>
+        console.log 'instance', instance
+        fooCtrl = instance.children[0]
+        options = fooCtrl.context.options
+        console.log 'options', options
+        expect(options.bar).to.equal 123
+        expect(options.color).to.equal 'red'
+        expect(options.foo).to.equal 'on options'
+      done()
+
 
 
   it 'invokes the [onInit] callback', (done) ->

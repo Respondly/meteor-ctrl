@@ -71,10 +71,16 @@ Template.render.helpers
   ctrlRef: ->
     if ctrl = @ctrl
 
-      options = {}
+      # Use the {options} object if specified.
+      if Object.isObject(ctrl.options)
+        options = @ctrl.options
+      else
+        options = {}
+
+      # Copy values from the definition on the {options}.
       for key, value of ctrl
         unless key is 'type' or key is 'data'
-          options[key] = value
+          options[key] ?= value
 
       result =
         type: ctrl.type

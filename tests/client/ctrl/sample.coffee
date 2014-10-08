@@ -97,6 +97,22 @@ Ctrl.define
             @onDestroyedContext = @
 
 
+
+# ----------------------------------------------------------------------
+
+
+Ctrl.define
+  'render-options':
+    helpers:
+      def: ->
+        def =
+          type:'foo'
+          bar:123
+          foo:'on def'
+          options: { color: 'red', foo:'on options' }
+
+
+
 # ----------------------------------------------------------------------
 
 Ctrl.define
