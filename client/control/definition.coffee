@@ -13,7 +13,7 @@ class Ctrl.CtrlDefinition
     def = @def
     @def.type ?= @type
     @tmpl = tmpl = Template[@type]
-    throw new Error("Template '#{ @type }' does not exist.") unless @tmpl
+    throw new Error("Template for Ctrl type '#{ @type }' does not exist.") unless @tmpl
 
     # Ensure objects exist.
     def.api     ?= {}
