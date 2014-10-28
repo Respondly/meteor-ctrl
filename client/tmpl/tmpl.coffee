@@ -12,7 +12,6 @@ Eample usage:
     {{> ctrl type="my-type" data=data id='myThing' foo=123 }}
 
 
-
 ###
 Template.ctrl.helpers
   ###

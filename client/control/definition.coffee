@@ -81,7 +81,7 @@ class Ctrl.CtrlDefinition
 
 
 
-    # CREATED (DOM Ready).
+    # READY (DOM Ready).
     tmpl.rendered = ->
         instance = @__instance__
         instance.isReady = true
