@@ -14,30 +14,26 @@ Eample usage:
 
 ###
 Template.ctrl.helpers
-  ###
-  The template name: {{> UI.dynamic template=name data=context }}
-  ###
-  name: -> @type
-
-
-  ###
-  The templates data context: {{> UI.dynamic template=name data=context }}
-  ###
   context: ->
     options = @
 
     # Retrieve the template name, and clear it off the options object.
-    tmpl = options.type
+    type = options.type
     delete options.type
 
     # Retrieve the control definition.
-    ctrl = Ctrl.defs[tmpl]
+    ctrl = Ctrl.defs[type]
     if not ctrl
-      throw new Error("The control of type '#{ tmpl }' has not been defined.")
+      throw new Error("The control of type '#{ type }' has not been defined.")
 
-    # Return the instance helpers as the data context for the rendered template.
-    return new Ctrl.CtrlInstance(ctrl.def, options).helpers
+    # Create the new logical instance
+    instance = new Ctrl.CtrlInstance(ctrl.def, options)
 
+    # Finish up.
+    result =
+      tmpl: ctrl.tmpl
+      data: instance.helpers  # NB: The helpers are used as the data
+                              #     context for the Blaze template.
 
 
 

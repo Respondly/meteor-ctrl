@@ -1,8 +1,10 @@
 <template name='ctrl'>
-  {{#if name}}
-    {{> UI.dynamic template=name data=context }}
-  {{/if}}
+  {{#with context}}
+    {{> ../tmpl data }}
+  {{/with}}
 </template>
+
+
 
 
 
