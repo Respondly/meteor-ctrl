@@ -20,6 +20,8 @@ Template.ctrl.helpers
     # Retrieve the template name, and clear it off the options object.
     type = options.type
     delete options.type
+    if not type
+      throw new Error("A control type has not been specified, eg: {{> ctrl type='foo' }}.")
 
     # Retrieve the control definition.
     ctrl = Ctrl.defs[type]
