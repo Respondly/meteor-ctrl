@@ -312,6 +312,8 @@ class Ctrl.CtrlInstance
     if Object.isString(selector) and not Util.isBlank(selector)
       selector = { type:selector }
 
+    return unless Object.isString(selector.type)
+
     walk = (instance) ->
               return null unless instance?
               if type = selector.type
@@ -321,7 +323,11 @@ class Ctrl.CtrlInstance
                   return walk(instance.parent) # <== RECURSION.
               # Not found.
               null
+
     walk(@parent)
+
+
+
 
 
 
