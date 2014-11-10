@@ -42,6 +42,7 @@ class Ctrl.CtrlInstance
     @helpers.api ?= @api
     @helpers.options ?= @options
     @model = wrap(def.model)
+    @helpers.model ?= @model
 
     # Store data.
     @data = @options.data ? {}
