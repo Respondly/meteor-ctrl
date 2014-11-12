@@ -188,6 +188,7 @@ class Ctrl.CtrlInstance
   hasFocus: ->
     elFocused = document.activeElement
     el = @el()
+    return false if not el?
     return true if el[0] is elFocused
     el.has(elFocused).length > 0
 
