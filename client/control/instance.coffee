@@ -253,6 +253,8 @@ class Ctrl.CtrlInstance
       handlers = @__internal__.onReady ?= new Handlers()
       handlers.push(func)
 
+    return @ctrl
+
 
 
   ###
@@ -267,6 +269,8 @@ class Ctrl.CtrlInstance
     else
       handlers = @__internal__.onDestroyed ?= new Handlers()
       handlers.push(func)
+
+    return @ctrl
 
 
 
