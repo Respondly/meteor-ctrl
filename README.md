@@ -4,7 +4,6 @@ Logical UI control abstraction around blaze.
 
 
 ## Run Tests
-From the package folder:
 
     meteor test-packages --driver-package mike:pkgtest respondly:ctrl
 
