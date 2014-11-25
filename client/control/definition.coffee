@@ -165,7 +165,7 @@ class Ctrl.CtrlDefinition
 
     r = Blaze.renderWithData(Template.ctrl, args, parentEl)
 
-    console.log 'TODO Clean Up | beforeEl'
+    console.log 'TODO Clean Up | test:beforeEl'
 
 
 
