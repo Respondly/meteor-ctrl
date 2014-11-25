@@ -1,5 +1,8 @@
 Package.describe({
-  summary: 'Logical UI-control abstraction around blaze'
+  name: 'respondly:ctrl',
+  summary: 'Logical UI-control abstraction around blaze',
+  version: '1.0.0',
+  git: 'https://github.com/Respondly/meteor-ctrl.git'
 });
 
 
@@ -8,7 +11,7 @@ Package.on_use(function (api) {
   api.use('http', ['client', 'server']);
   api.use(['templating', 'ui', 'spacebars'], 'client');
   api.use(['coffeescript']);
-  api.use(['util']);
+  api.use(['respondly:util']);
   api.export(['Ctrl', 'Ctrls', 'Util']);
 
   // Generated with: github.com/philcockfield/meteor-package-paths
@@ -25,10 +28,10 @@ Package.on_use(function (api) {
 
 
 Package.on_test(function (api) {
-  api.use(['coffeescript', 'munit']);
+  api.use(['mike:mocha-package@0.4.7', 'coffeescript']);
   api.use(['templating', 'ui', 'spacebars'], 'client');
-  api.use(['util']);
-  api.use('ctrl');
+  api.use(['respondly:util']);
+  api.use('respondly:ctrl');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.add_files('tests/client/ctrl/sample.html', 'client');

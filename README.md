@@ -6,7 +6,7 @@ Logical UI control abstraction around blaze.
 ## Run Tests
 From the package folder:
 
-    mrt test-packages ctrl
+    meteor test-packages --driver-package mike:pkgtest ctrl
 
 
 

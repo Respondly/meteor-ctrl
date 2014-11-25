@@ -38,7 +38,7 @@ class Ctrl.CtrlDefinition
         delete @data.__instance__
 
         # Cross reference blaze-view/instance.
-        blazeView = @__view__
+        blazeView = @view
         blazeView.__instance__ = instance
         instance.__internal__.blazeView = blazeView
 
@@ -88,7 +88,7 @@ class Ctrl.CtrlDefinition
         ctrl = instance.ctrl
 
         # Ensure that the control has a single root element.
-        if @__view__.domrange.members.length > 1
+        if @view._domrange.members.length > 1
           throw new Error("The [#{ self.type }] ctrl has more than one top-level element in the template.")
 
         # Add the UID attribute.
@@ -131,6 +131,7 @@ class Ctrl.CtrlDefinition
   @param parentCtrl:  (optional) A reference to the parent control.
   ###
   insert: (parentEl, beforeEl, args, parentCtrl) ->
+
     # Setup initial conditions.
     if beforeEl?
       if not args? and not (beforeEl.jquery or beforeEl.nodeType is 1)
@@ -153,9 +154,24 @@ class Ctrl.CtrlDefinition
     parentEl = processEl(parentEl)
     beforeEl = processEl(beforeEl)
 
+
+    # Blaze.renderWithData
+    # function (content, data, parentElement, nextNode, parentView)
+
     # Render the control.
-    domrange = UI.renderWithData(Template.ctrl, args)
-    UI.insert(domrange, parentEl, beforeEl)
+
+    # domrange = UI.renderWithData(Template.ctrl, args, parentEl)
+
+
+    r = Blaze.renderWithData(Template.ctrl, args, parentEl)
+
+    console.log 'TODO Clean Up | beforeEl'
+
+
+
+
+
+    # UI.insert(domrange, parentEl, beforeEl)
 
     # Retrieve the new instance.
     instance = Ctrl.__inserted
