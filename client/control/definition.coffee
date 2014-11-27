@@ -154,24 +154,8 @@ class Ctrl.CtrlDefinition
     parentEl = processEl(parentEl)
     beforeEl = processEl(beforeEl)
 
-
-    # Blaze.renderWithData
-    # function (content, data, parentElement, nextNode, parentView)
-
     # Render the control.
-
-    # domrange = UI.renderWithData(Template.ctrl, args, parentEl)
-
-
-    r = Blaze.renderWithData(Template.ctrl, args, parentEl)
-
-    console.log 'TODO Clean Up | test:beforeEl'
-
-
-
-
-
-    # UI.insert(domrange, parentEl, beforeEl)
+    Blaze.renderWithData(Template.ctrl, args, parentEl, beforeEl)
 
     # Retrieve the new instance.
     instance = Ctrl.__inserted
