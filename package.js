@@ -12,7 +12,7 @@ Package.onUse(function (api) {
   api.use('http', ['client', 'server']);
   api.use(['templating', 'ui', 'spacebars'], 'client');
   api.use('coffeescript');
-  api.use('respondly:util');
+  api.use('respondly:util@1.0.0');
   api.export('Ctrl');
   api.export('Ctrls');
   api.export('Util');
