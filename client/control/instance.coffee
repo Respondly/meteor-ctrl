@@ -70,6 +70,14 @@ class Ctrl.CtrlInstance
     unless blazeView.isDestroyed
       Blaze.remove(blazeView)
 
+      # Ensure DOM elements have been removed.
+      # NOTE: This is only necessary if the members are DOM elements.
+      #       When rendered normally within Templates these are typically
+      #       BlazeViews and this call is not required.
+      if members = blazeView?._domrange.members
+        for item in members
+          item.remove() if (item instanceof HTMLElement)
+
     # Remove all custom events (jQuery).
     @off() if internal.events?
 
