@@ -69,7 +69,6 @@ class Ctrl.CtrlInstance
     blazeView = internal.blazeView
     unless blazeView.isDestroyed
       Blaze.remove(blazeView)
-      blazeView._domrange.members[0]?.remove()
 
     # Remove all custom events (jQuery).
     @off() if internal.events?
