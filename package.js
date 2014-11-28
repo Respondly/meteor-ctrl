@@ -8,11 +8,14 @@ Package.describe({
 
 
 Package.onUse(function (api) {
+  api.versionsFrom('1.0');
   api.use('http', ['client', 'server']);
   api.use(['templating', 'ui', 'spacebars'], 'client');
-  api.use(['coffeescript']);
-  api.use(['respondly:util']);
-  api.export(['Ctrl', 'Ctrls', 'Util']);
+  api.use('coffeescript');
+  api.use('respondly:util');
+  api.export('Ctrl');
+  api.export('Ctrls');
+  api.export('Util');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('client/tmpl/tmpl.html', 'client');
