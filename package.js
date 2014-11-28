@@ -1,7 +1,7 @@
 Package.describe({
   name: 'respondly:ctrl',
   summary: 'Logical UI-control abstraction around blaze',
-  version: '0.0.1',
+  version: '1.0.0',
   git: 'https://github.com/Respondly/meteor-ctrl.git'
 });
 
