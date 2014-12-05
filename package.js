@@ -8,7 +8,7 @@ Package.describe({
 
 
 Package.onUse(function (api) {
-  api.versionsFrom('1.0');
+  // api.versionsFrom('1.0');
   api.use('http', ['client', 'server']);
   api.use(['templating', 'ui', 'spacebars'], 'client');
   api.use('coffeescript');
