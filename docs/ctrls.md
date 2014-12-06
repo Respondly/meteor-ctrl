@@ -24,7 +24,7 @@ There are three main parts involved in a `Ctrl`:
 
 2. **CtrlInstance** - The internal instance that is created when the control is rendered within the DOM.  This provides access to all internal state, lifecycle callbacks, and is the `this` context for functions declared on the `CtrlDefinition`.
 
-3. **Ctrl** - The public API of the control.  This is conceptually clean API that you public to external parties as the way to manipulate the control.  This is declared within the `api` subset of the definition.
+3. **Ctrl** - The public API of the control.  This is conceptually clean API that you expose for external parties to manipulate the control.  This is declared within the `api` subset of the definition.
 
 
 ## Getting Started
