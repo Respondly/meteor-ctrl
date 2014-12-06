@@ -140,11 +140,11 @@ Helpers work the same as Template helpers in Blaze.  Declare a function helper f
 
 Some default helper functions that are automatically provided by the control are:
 
-- `{{instance}}` - Outputs the type and UID of the control.
-- `{{uid}}` - Outputs the UID (Unique ID) of the control.
-- `{{api}}` - Access to the public API properties.
-- `{{options}}` - The arguments passed to the control.
-- `{{model}}` - Access to the internal `model` method.
+- `{{ instance }}` - Outputs the type and UID of the control.
+- `{{ uid }}` - Outputs the UID (Unique ID) of the control.
+- `{{ api.* }}` - Access to the public API properties.
+- `{{ options.* }}` - The arguments passed to the control.
+- `{{ model.* }}` - Access to the internal `model` method.
 
 
 ## Events
