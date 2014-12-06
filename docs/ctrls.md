@@ -144,11 +144,11 @@ Some default helper functions that are automatically provided by the control are
 - `{{ uid }}` - Outputs the UID (Unique ID) of the control.
 - `{{ api.* }}` - Access to the public API properties.
 - `{{ options.* }}` - The arguments passed to the control.
-- `{{ model.* }}` - Access to the internal `model` method.
+- `{{ model.* }}` - Access to the internal `model` methods.
 
 
 ## Events
-Events work the same as events do on Blaze templates:
+Events maps work the same as events do on Blaze templates:
 
 #### Code
 
