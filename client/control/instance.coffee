@@ -76,7 +76,8 @@ class Ctrl.CtrlInstance
       #       BlazeViews and this call is not required.
       if members = blazeView?._domrange.members
         for item in members
-          item.remove() if (item instanceof HTMLElement)
+          if (item instanceof HTMLElement)
+            $(item).remove()
 
     # Remove all custom events (jQuery).
     @off() if internal.events?
