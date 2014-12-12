@@ -24,7 +24,9 @@ Package.onUse(function (api) {
   api.addFiles('client/control/control.coffee', 'client');
   api.addFiles('client/control/definition.coffee', 'client');
   api.addFiles('client/control/instance.coffee', 'client');
-  api.addFiles('client/tmpl/tmpl.coffee', 'client');
+  api.addFiles('client/tmpl/tmpl-ctrl.coffee', 'client');
+  api.addFiles('client/tmpl/tmpl-render-each.coffee', 'client');
+  api.addFiles('client/tmpl/tmpl-render.coffee', 'client');
 
 });
 
