@@ -1,5 +1,6 @@
 # Meteor-Control.
 Logical UI control abstraction around blaze.
+See the [docs](https://github.com/Respondly/meteor-ctrl/blob/master/docs/ctrls.md).
 
 
 
