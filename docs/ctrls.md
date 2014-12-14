@@ -144,6 +144,7 @@ Some default helper functions that are automatically provided by the control are
 - `{{uid}}` - Outputs the UID (Unique ID) of the control.
 - `{{api}}` - Access to the public API properties.
 - `{{options}}` - The arguments passed to the control.
+- `{{data}}` - The data object passed to the control.
 - `{{model}}` - Access to the internal `model` method.
 
 
