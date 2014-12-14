@@ -87,11 +87,11 @@ not dependent upon Stylus per se.
 ## Lifecycle
 You manage the lifecycle of the control through three lifecycle callbacks.
 
-  Ctrl.define
-    'my-sample':
-      init: ->
-      ready: ->
-      destroyed: ->
+      Ctrl.define
+        'my-sample':
+          init: ->
+          ready: ->
+          destroyed: ->
 
 
 #### Init
@@ -272,11 +272,6 @@ Finds the first matching child.
 
     # Find by function filter.
     childCtrl = instance.findChild (ctrl) -> true if ctrl.id is 'myFoo'
-
-
-
-
-
 
 
 
