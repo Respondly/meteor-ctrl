@@ -67,11 +67,11 @@ type name.
 
 #### Template: my-sample.html
 
-  <template name='my-sample'>
-    <div class='my-sample'>
-      <code>{{instance}}</code>
-    </div>
-  </template>
+      <template name='my-sample'>
+        <div class='my-sample'>
+          <code>{{instance}}</code>
+        </div>
+      </template>
 
 
 #### CSS: my-type.styl
@@ -79,8 +79,8 @@ We use the Stylus CSS pre-processor, however the control system is
 not dependent upon Stylus per se.
 
 
-  .my-type
-    background $RED
+      .my-type
+        background $RED
 
 
 
