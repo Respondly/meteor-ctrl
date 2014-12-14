@@ -49,15 +49,15 @@ Three files were generated that make up the control: `.coffee`, `.html` and `.st
 
 #### Code: my-sample.coffee
 
-  Ctrl.define
-    'my-sample':
-      init: ->
-      ready: ->
-      destroyed: ->
-      model: ->
-      api: {}
-      helpers: {}
-      events: {}
+      Ctrl.define
+        'my-sample':
+          init: ->
+          ready: ->
+          destroyed: ->
+          model: ->
+          api: {}
+          helpers: {}
+          events: {}
 
 
 Typically the root element of the control's template has a CSS `class`
