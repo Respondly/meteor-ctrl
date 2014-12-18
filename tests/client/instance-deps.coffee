@@ -8,8 +8,7 @@ describe 'Instance: autorun', ->
         Session.set(KEY, 'a')
         Util.delay 10, =>
           Session.set(KEY, 'b')
-          @try =>
-              expect(instance.runCount).to.equal 2
+          expect(instance.runCount).to.equal 2
           done()
 
 
@@ -22,17 +21,15 @@ describe 'Instance: ReactiveHash', ->
 
   it 'has a ReactiveHash', (done) ->
     Test.insert 'foo', (instance) =>
-      @try =>
-          expect(instance.hash()).to.be.an.instanceof ReactiveHash
-          expect(instance.hash()).to.equal instance.hash() # Same instance.
+      expect(instance.hash()).to.be.an.instanceof ReactiveHash
+      expect(instance.hash()).to.equal instance.hash() # Same instance.
       done()
 
   it 'disposes of the ReactiveHash', (done) ->
     Test.insert 'foo', (instance) =>
-      @try =>
-          hash = instance.hash()
-          instance.dispose()
-          expect(hash.isDisposed).to.equal true
+      hash = instance.hash()
+      instance.dispose()
+      expect(hash.isDisposed).to.equal true
       done()
 
 
@@ -43,16 +40,15 @@ describe 'Instance: Prop', ->
   it 'reads a value from the hash', (done) ->
     Test.insert 'foo', (instance) =>
       instance.hash().set('myProp', 123)
-      @try => expect(instance.prop('myProp')).to.equal 123
+      expect(instance.prop('myProp')).to.equal 123
       done()
 
   it 'writes a value to the hash', (done) ->
     Test.insert 'foo', (instance) =>
       instance.prop('myProp', 123)
-      @try =>
-          hash = instance.hash()
-          expect(hash.get('myProp')).to.equal 123
-          expect(hash.keys.myProp).to.equal 123
+      hash = instance.hash()
+      expect(hash.get('myProp')).to.equal 123
+      expect(hash.keys.myProp).to.equal 123
       done()
 
 
@@ -68,7 +64,7 @@ describe 'Instance: Prop', ->
       Util.delay =>
         instance.prop('myProp', 123) # Change 2 (no change).
         Util.delay =>
-          @try => expect(count).to.equal 1
+          expect(count).to.equal 1
           done()
 
 
@@ -84,28 +80,27 @@ describe 'Instance: Prop', ->
       Util.delay =>
         instance.prop('myProp', 123, onlyOnChange:false) # Change 2 (no change).
         Util.delay =>
-          @try => expect(count).to.equal 2
+          expect(count).to.equal 2
           done()
 
 
   it 'looks for [default] value by default', (done) ->
     Test.insert 'foo', {myProp:'hello'}, (instance) =>
-      @try =>
         value = instance.prop('myProp')
         expect(instance.prop('myProp')).to.equal 'hello'
-      done()
+        done()
 
 
   it 'takes explicit [default] value by default', ->
     Test.insert 'foo', (instance) =>
       value = instance.prop('myProp', undefined, default:'my-default')
-      @try -> expect(value).to.equal 'my-default'
+      expect(value).to.equal 'my-default'
 
       value = instance.prop('myProp', undefined, default:false)
-      @try -> expect(value).to.equal false
+      expect(value).to.equal false
 
       value = instance.prop('myProp', undefined, default:null)
-      @try -> expect(value).to.equal null
+      expect(value).to.equal null
 
       done()
 
@@ -114,15 +109,13 @@ describe 'Instance: Prop', ->
     # NB: This is for legacy code that is declared with [@defaultValue]
     #     within the property declaration.
     Test.insert 'foo', {myProp:'hello'}, (instance) =>
-      @try =>
         value = instance.prop('myProp', undefined, default:instance.defaultValue('myProp', 'foo'))
         expect(instance.prop('myProp')).to.equal 'hello'
-      done()
+        done()
 
 
 
 # ----------------------------------------------------------------------
-
 
 
 
@@ -131,21 +124,19 @@ describe 'Instance: ScopedSession', ->
 
   it 'has a session with a namespace of the UID', (done) ->
     Test.insert 'foo', (instance) =>
-      @try => expect(instance.session().namespace).to.equal "__ctrl:#{ instance.uid }"
-      done()
+        expect(instance.session().namespace).to.equal "__ctrl:#{ instance.uid }"
+        done()
 
   it 'has returns the same instance of the session', (done) ->
     Test.insert 'foo', (instance) =>
-      @try =>
         session1 = instance.session()
         session2 = instance.session()
         expect(session1).to.equal session2
-      done()
+        done()
 
   it 'disposes of the session', (done) ->
     Test.insert 'foo', (instance) =>
-      @try =>
         session = instance.session()
         instance.dispose()
         expect(session.isDisposed).to.equal true
-      done()
+        done()

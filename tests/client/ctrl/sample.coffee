@@ -28,7 +28,7 @@ Ctrl.define
 Ctrl.define
   'foo':
     api:
-      text: (value) -> @prop 'text', value
+      text: (value) -> @prop 'text', value, default:'DefaultText'
 
     helpers:
       text: -> "#{ @api.text() }:#{ @uid }"

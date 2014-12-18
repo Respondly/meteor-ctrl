@@ -37,7 +37,7 @@ class Ctrl.CtrlInstance
 
     # Wrap helper methods.
     @helpers[key] = wrap(func) for key, func of def.helpers
-    @helpers.instance ?= -> "#{ self.type }##{ self.uid }" # Standard output for {{instance}} within a template.
+    @helpers.instance ?= ->  "#{ self.type }##{ self.uid }"
     @helpers.uid ?= @uid
     @helpers.api ?= @api
     @helpers.options ?= @options
@@ -68,7 +68,16 @@ class Ctrl.CtrlInstance
     #     having caused the ctrl to be destroyed.
     blazeView = internal.blazeView
     unless blazeView.isDestroyed
-      UI.remove(blazeView.domrange)
+      Blaze.remove(blazeView)
+
+      # Ensure DOM elements have been removed.
+      # NOTE: This is only necessary if the members are DOM elements.
+      #       When rendered normally within Templates these are typically
+      #       BlazeViews and this call is not required.
+      if members = blazeView?._domrange.members
+        for item in members
+          if (item instanceof HTMLElement)
+            $(item).remove()
 
     # Remove all custom events (jQuery).
     @off() if internal.events?
@@ -130,7 +139,7 @@ class Ctrl.CtrlInstance
                     If ommited the root element is returned.
   ###
   find: (selector) ->
-    if el = @__internal__.blazeView?.domrange?.members[0]
+    if el = @__internal__.blazeView?._domrange?.members[0]
       if not selector? or selector is ''
         $(el)
       else

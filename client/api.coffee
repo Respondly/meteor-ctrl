@@ -33,7 +33,7 @@ Ctrl.fromElement = (el) ->
   el = $(el) if not el.jquery?
   if el.length > 0
     # Look up the control instance.
-    view = Blaze.getElementView(el[0])
+    view = Blaze.getView(el[0])
     view?.__instance__?.ctrl
 
 

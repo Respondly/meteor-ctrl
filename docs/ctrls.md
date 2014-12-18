@@ -49,6 +49,7 @@ Three files were generated that make up the control: `.coffee`, `.html` and `.st
 
 #### Code: my-sample.coffee
 
+<<<<<<< HEAD
       Ctrl.define
         'my-sample':
           init: ->
@@ -58,6 +59,17 @@ Three files were generated that make up the control: `.coffee`, `.html` and `.st
           api: {}
           helpers: {}
           events: {}
+=======
+  Ctrl.define
+    'my-sample':
+      init: ->
+      ready: ->
+      destroyed: ->
+      model: ->
+      api: {}
+      helpers: {}
+      events: {}
+>>>>>>> port-1.0
 
 
 Typically the root element of the control's template has a CSS `class`
@@ -67,11 +79,19 @@ type name.
 
 #### Template: my-sample.html
 
+<<<<<<< HEAD
       <template name='my-sample'>
         <div class='my-sample'>
           <code>{{instance}}</code>
         </div>
       </template>
+=======
+  <template name='my-sample'>
+    <div class='my-sample'>
+      <code>{{instance}}</code>
+    </div>
+  </template>
+>>>>>>> port-1.0
 
 
 #### CSS: my-type.styl
@@ -79,19 +99,32 @@ We use the Stylus CSS pre-processor, however the control system is
 not dependent upon Stylus per se.
 
 
+<<<<<<< HEAD
       .my-type
         background $RED
+=======
+  .my-type
+    background $RED
+>>>>>>> port-1.0
 
 
 
 ## Lifecycle
 You manage the lifecycle of the control through three lifecycle callbacks.
 
+<<<<<<< HEAD
       Ctrl.define
         'my-sample':
           init: ->
           ready: ->
           destroyed: ->
+=======
+    Ctrl.define
+      'my-sample':
+        init: ->
+        ready: ->
+        destroyed: ->
+>>>>>>> port-1.0
 
 
 #### Init
@@ -140,6 +173,7 @@ Helpers work the same as Template helpers in Blaze.  Declare a function helper f
 
 Some default helper functions that are automatically provided by the control are:
 
+<<<<<<< HEAD
 - `{{instance}}` - Outputs the type and UID of the control.
 - `{{uid}}` - Outputs the UID (Unique ID) of the control.
 - `{{api}}` - Access to the public API properties.
@@ -150,6 +184,17 @@ Some default helper functions that are automatically provided by the control are
 
 ## Events
 Events work the same as events do on Blaze templates:
+=======
+- `{{ instance }}` - Outputs the type and UID of the control.
+- `{{ uid }}` - Outputs the UID (Unique ID) of the control.
+- `{{ api.* }}` - Access to the public API properties.
+- `{{ options.* }}` - The arguments passed to the control.
+- `{{ model.* }}` - Access to the internal `model` methods.
+
+
+## Events
+Events maps work the same as events do on Blaze templates:
+>>>>>>> port-1.0
 
 #### Code
 
@@ -276,6 +321,14 @@ Finds the first matching child.
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> port-1.0
 ## Prop (Reactive)
 Not only do UI controls handle data from models (Mongo documents) but they can maintain their own state.  This is what makes them powerful tools for implementing MVVM.
 

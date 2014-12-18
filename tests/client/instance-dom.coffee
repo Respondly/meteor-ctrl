@@ -3,50 +3,45 @@ describe 'instance.ancestor()', ->
 
   it 'does not find an ancestor', (done) ->
     Test.insert 'deep', (instance) =>
-      @try =>
           deepChild = instance.children.myChild.context.children.foo
           expect(deepChild.ancestor()).to.equal null
           expect(deepChild.ancestor(type:null)).to.equal null
           expect(deepChild.ancestor(type:'')).to.equal null
           expect(deepChild.ancestor(type:'not-exist')).to.equal null
           expect(deepChild.context.ancestor(type:'not-exist')).to.equal null
-      done()
+          done()
 
 
   it 'finds the first ancestor', (done) ->
     Test.insert 'deep', (instance) =>
-      @try =>
           deepChild = instance.children.myChild.context.children.foo
           expect(deepChild.ancestor(type:'deep')).to.equal instance.ctrl
           expect(deepChild.context.ancestor(type:'deep')).to.equal instance
-      done()
+          done()
 
 
   it 'defaults a string parmeter to { type:string }', (done) ->
     Test.insert 'deep', (instance) =>
-      @try =>
           deepChild = instance.children.myChild.context.children.foo
           expect(deepChild.ancestor('deep')).to.equal instance.ctrl
           expect(deepChild.context.ancestor('deep')).to.equal instance
-      done()
+          done()
 
 
   it 'finds the first using a partial type-name', (done) ->
     Test.insert 'deep', (instance) =>
-      @try =>
           deepChild = instance.children.myChild.context.children.foo
           ancestor = deepChild.ancestor(type:'-child')
           expect(ancestor).to.equal instance.children.myChild
-      done()
+          done()
 
 
   it 'does not find the same type ancestor', (done) ->
     Test.insert 'deep', (instance) =>
-      @try =>
           deepChild = instance.children.myChild.context.children.foo
           expect(deepChild.ancestor(type:'foo')).to.equal null
           expect(deepChild.context.ancestor(type:'foo')).to.equal null
-      done()
+          done()
 
 
 
@@ -59,27 +54,24 @@ describe 'instance.closest()', ->
 
   it 'does not find the closesst ancestor', (done) ->
     Test.insert 'deep', (instance) =>
-      @try =>
           deepChild = instance.children.myChild.context.children.foo
           expect(deepChild.closest(type:'not-found')).to.equal null
           expect(deepChild.context.closest(type:'not-found')).to.equal null
-      done()
+          done()
 
   it 'finds the closesst ancestor', (done) ->
     Test.insert 'deep', (instance) =>
-      @try =>
           deepChild = instance.children.myChild.context.children.foo
           expect(deepChild.closest(type:'deep')).to.equal instance.ctrl
           expect(deepChild.context.closest(type:'deep')).to.equal instance
-      done()
+          done()
 
   it 'finds the same instance', (done) ->
     Test.insert 'deep', (instance) =>
-      @try =>
           deepChild = instance.children.myChild.context.children.foo
           expect(deepChild.closest(type:'foo')).to.equal deepChild
           expect(deepChild.context.closest(type:'foo')).to.equal deepChild.context
-      done()
+          done()
 
 
 
@@ -92,21 +84,19 @@ describe 'Instance: [find] and [el] methods', ->
 
   it 'has both [find] and [el] methods', (done) ->
     Test.insert 'foo', (instance) =>
-      @try =>
           expect(instance.find().attr("data-ctrl")).to.equal "foo##{ instance.uid }"
           expect(instance.el().attr("data-ctrl")).to.equal "foo##{ instance.uid }"
-      done()
+          done()
 
   it 'finds child elements with CSS selector', (done) ->
     Test.insert 'foo', { text:'Hello' }, (instance) =>
-      @try =>
           el = instance.find('code')
           expect(el.html()).to.equal "Hello:#{ instance.uid }"
 
           el = instance.el('code')
           expect(el.html()).to.equal "Hello:#{ instance.uid }"
 
-      done()
+          done()
 
 
 

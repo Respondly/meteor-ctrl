@@ -10,10 +10,9 @@ describe '[onReady] callback', ->
           arg = ctrl
           count += 1
     Util.delay =>
-      @try =>
-          expect(count).to.equal 1
-          expect(arg).to.equal instance.ctrl
-      done()
+        expect(count).to.equal 1
+        expect(arg).to.equal instance.ctrl
+        done()
 
 
   it 'invokes [onReady] callbacks (ctrl)', (done) ->
@@ -24,25 +23,23 @@ describe '[onReady] callback', ->
         count += 1
         arg = c
     Util.delay =>
-      @try =>
-          expect(count).to.equal 1
-          expect(arg).to.equal ctrl
-      done()
+        expect(count).to.equal 1
+        expect(arg).to.equal ctrl
+        done()
 
 
   it 'invokes [onReady] immediately if the Ctrl is already "ready"', (done) ->
     Test.insert 'foo', (instance) =>
       ctrl = instance.ctrl
-      @try =>
-          expect(ctrl.el()?).to.equal true # Is Ready.
-          count = 0
-          arg = null
-          ctrl.onReady (c) ->
-              # Immediately invoked.
-              count += 1
-              arg = c
-          expect(count).to.equal 1
-          expect(arg).to.equal ctrl
+      expect(ctrl.el()?).to.equal true # Is Ready.
+      count = 0
+      arg = null
+      ctrl.onReady (c) ->
+          # Immediately invoked.
+          count += 1
+          arg = c
+      expect(count).to.equal 1
+      expect(arg).to.equal ctrl
       done()
 
 
@@ -59,16 +56,15 @@ describe '[onDestroyed] callback', ->
     arg = null
 
     Test.insert 'foo', (instance) =>
-      instance.onDestroyed (c) ->
-        count += 1
-        arg = c
+        instance.onDestroyed (c) ->
+          count += 1
+          arg = c
 
-      @try =>
         instance.dispose()
         instance.dispose()
         expect(count).to.equal 1
         expect(arg).to.equal instance.ctrl
-      done()
+        done()
 
 
   it 'invokes [onDestroyed] callbacks (ctrl)', (done) ->
@@ -80,12 +76,11 @@ describe '[onDestroyed] callback', ->
         count += 1
         arg = c
 
-      @try =>
-        instance.dispose()
-        instance.dispose()
-        expect(count).to.equal 1
-        expect(arg).to.equal instance.ctrl
-        expect(arg.isDisposed).to.equal true
+      instance.dispose()
+      instance.dispose()
+      expect(count).to.equal 1
+      expect(arg).to.equal instance.ctrl
+      expect(arg.isDisposed).to.equal true
       done()
 
 
@@ -101,9 +96,8 @@ describe '[onDestroyed] callback', ->
         count += 1
         arg = c
 
-      @try =>
-        expect(count).to.equal 1
-        expect(arg).to.equal instance.ctrl
+      expect(count).to.equal 1
+      expect(arg).to.equal instance.ctrl
       done()
 
 

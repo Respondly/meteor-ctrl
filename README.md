@@ -5,9 +5,8 @@ See the [docs](https://github.com/Respondly/meteor-ctrl/blob/master/docs/ctrls.m
 
 
 ## Run Tests
-From the package folder:
 
-    mrt test-packages ctrl
+    meteor test-packages --driver-package mike:pkgtest respondly:ctrl
 
 
 
