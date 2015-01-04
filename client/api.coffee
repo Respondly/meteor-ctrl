@@ -1,5 +1,5 @@
 #= base
-#= require ./ns.js
+
 
 ###
 Registers one or more control definitions.

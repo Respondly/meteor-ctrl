@@ -18,8 +18,9 @@ Package.onUse(function (api) {
   api.export('Util');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('shared/ns.js', ['client', 'server']);
+  api.addFiles('server/api.coffee', 'server');
   api.addFiles('client/tmpl/tmpl.html', 'client');
-  api.addFiles('client/ns.js', 'client');
   api.addFiles('client/api.coffee', 'client');
   api.addFiles('client/control/control.coffee', 'client');
   api.addFiles('client/control/definition.coffee', 'client');
