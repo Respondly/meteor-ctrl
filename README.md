@@ -2,7 +2,7 @@
 Logical UI control abstraction around blaze.
 See the [docs](https://github.com/Respondly/meteor-ctrl/blob/master/docs/ctrls.md).
 
-
+[![Circle CI](https://circleci.com/gh/Respondly/meteor-ctrl.svg?style=svg)](https://circleci.com/gh/Respondly/meteor-ctrl)
 
 ## Run Tests
 
