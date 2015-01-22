@@ -26,6 +26,9 @@ Test.insert = (ctrlDef, options, callback) ->
 Test.tearDown = ->
   # Remove all ctrl instances.
   for key, ctrl of Ctrl.ctrls
-    ctrl.dispose()
+    unless ctrl.type.startsWith('tr-')
+      # NOTE: Ensure the unit-test-reporter is not destroyed
+      #       when removing test controls.
+      ctrl.dispose()
 
 
