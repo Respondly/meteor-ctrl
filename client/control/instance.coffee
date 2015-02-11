@@ -182,9 +182,10 @@ class Ctrl.CtrlInstance
   ###
   Retrieves the first child control that matches the given filter.
   @param filter:  The filter to look for, examples:
-                  func(ctrl)
-                  { type:'type-name' }
-                  { id:'my-id' }
+                    - func(ctrl)
+                    - string: The type-name to to use (converts to { type:name })
+                    - { type:'type-name' }
+                    - { id:'my-id' }
   @returns the matching child controls or [undefined].
   ###
   findChild: (filter) -> @findChildren(filter)[0]
