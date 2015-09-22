@@ -5,14 +5,18 @@ Package.describe({
   git: 'https://github.com/Respondly/meteor-ctrl.git'
 });
 
-
-
 Package.onUse(function (api) {
-  // api.versionsFrom('1.0');
-  api.use('http', ['client', 'server']);
-  api.use(['templating', 'ui', 'spacebars'], 'client');
-  api.use('coffeescript');
-  api.use('respondly:util@1.0.1');
+  api.versionsFrom('1.0');
+  api.use([
+    'http',
+    'templating',
+    'underscore',
+    'jquery',
+    'tracker',
+    'coffeescript',
+    'respondly:util@1.0.1',
+  ]);
+
   api.export('Ctrl');
   api.export('Ctrls');
   api.export('Util');
@@ -28,10 +32,7 @@ Package.onUse(function (api) {
   api.addFiles('client/tmpl/tmpl-ctrl.coffee', 'client');
   api.addFiles('client/tmpl/tmpl-render-each.coffee', 'client');
   api.addFiles('client/tmpl/tmpl-render.coffee', 'client');
-
 });
-
-
 
 Package.onTest(function (api) {
   api.use(['mike:mocha-package@0.5.7', 'coffeescript']);
@@ -53,5 +54,4 @@ Package.onTest(function (api) {
   api.addFiles('tests/client/instance-events.coffee', 'client');
   api.addFiles('tests/client/instance.coffee', 'client');
   api.addFiles('tests/client/render-tmpl.coffee', 'client');
-
 });
