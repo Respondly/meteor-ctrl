@@ -1,20 +1,20 @@
 Package.describe({
   name: 'respondly:ctrl',
   summary: 'Logical UI-control abstraction around blaze',
-  version: '1.0.1',
+  version: '1.0.2',
   git: 'https://github.com/Respondly/meteor-ctrl.git'
 });
 
 Package.onUse(function (api) {
   api.versionsFrom('1.0');
   api.use([
-    'http',
-    'templating',
-    'underscore',
-    'jquery',
-    'tracker',
-    'coffeescript',
-    'respondly:util@1.0.1',
+    'http@1.1.1',
+    'templating@1.1.4',
+    'underscore@1.0.4',
+    'jquery@1.11.4',
+    'tracker@1.0.9',
+    'coffeescript@1.0.10',
+    'respondly:util@1.0.3',
   ]);
 
   api.export('Ctrl');
@@ -35,16 +35,21 @@ Package.onUse(function (api) {
 });
 
 Package.onTest(function (api) {
-  api.use(['mike:mocha-package@0.5.7', 'coffeescript']);
-  api.use(['templating', 'ui', 'spacebars'], 'client');
-  api.use(['respondly:util']);
+  api.use(['mike:mocha-package@0.5.7', 'coffeescript@1.0.10']);
+  api.use([
+    'templating@1.1.4',
+    'jquery@1.11.4',
+    'tracker@1.0.9',
+    'session@1.1.1'
+  ]);
+  api.use(['respondly:util@1.0.3']);
   api.use('respondly:ctrl');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('tests/client/ctrl/sample.html', 'client');
   api.addFiles('tests/client/_init.coffee', 'client');
   api.addFiles('tests/client/ctrl/sample.coffee', 'client');
-  api.addFiles('tests/client/ctrl/sample.styl', 'client');
+  api.addAssets('tests/client/ctrl/sample.styl', 'client');
   api.addFiles('tests/client/control.coffee', 'client');
   api.addFiles('tests/client/dom.coffee', 'client');
   api.addFiles('tests/client/instance-callbacks.coffee', 'client');
